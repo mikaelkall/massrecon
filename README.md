@@ -1,5 +1,7 @@
 # massrecon.py
 
+This is still in develop it will be in develop branch until I have a ready release. 
+
 ## Summary
 
 This is reconissance tool specific written for OSCP engagements.
