@@ -20,10 +20,22 @@ class CherryTree:
         db_file = os.path.join(os.path.dirname(__file__), '../.db/massrecon.ctb')
 
         if os.path.exists(db_file) is False:
-            utils.puts('error', 'database could not be found')
-            return False
+            utils.puts('info', 'database was not found, I will create it for you.')
+            self.conn = sqlite3.connect(db_file)
+            self.setup_database()
+        else:
+            self.conn = sqlite3.connect(db_file)
 
-        self.conn = sqlite3.connect(db_file)
+    def setup_database(self):
+
+        self.conn.execute('CREATE TABLE IF NOT EXISTS bookmark (node_id INTEGER, sequence INTEGER)')
+        self.conn.execute('CREATE TABLE IF NOT EXISTS children (node_id INTEGER, father_id INTEGER, sequence INTEGER)')
+        self.conn.execute('CREATE TABLE IF NOT EXISTS codebox (node_id INTEGER, offset INTEGER, justification TEXT, txt TEXT, syntax TEXT, width INTEGER, height INTEGER, is_width_pix INTEGER, do_highl_bra INTEGER, do_show_linenum INTEGER)')
+        self.conn.execute('CREATE TABLE IF NOT EXISTS grid (node_id INTEGER, offset INTEGER, justification TEXT, txt TEXT, col_min INTEGER, col_max INTEGER)')
+        self.conn.execute('CREATE TABLE IF NOT EXISTS image (node_id INTEGER, offset INTEGER, justification TEXT, anchor TEXT, png BLOB, filename TEXT, link TEXT, time INTEGER)')
+        self.conn.execute('CREATE TABLE IF NOT EXISTS node (node_id INTEGER, name TEXT, txt TEXT, syntax TEXT, tags TEXT, is_ro INTEGER, is_richtxt INTEGER, has_codebox INTEGER, has_table INTEGER, has_image INTEGER, level INTEGER, ts_creation INTEGER, ts_lastsave INTEGER)')
+
+        self.insert('root', 'machines')
 
     def insert(self, on_level='', data=''):
 
@@ -34,10 +46,13 @@ class CherryTree:
             utils.puts('info', 'The input level do not match the levels configured')
             return False
 
-        cur = self.conn.cursor()
-        cur.execute('SELECT max(node_id) FROM node')
-        node_id = int(cur.fetchone()[0]) + 1
-        cur.close()
+        try:
+            cur = self.conn.cursor()
+            cur.execute('SELECT max(node_id) FROM node')
+            node_id = int(cur.fetchone()[0]) + 1
+            cur.close()
+        except:
+            node_id = 1
 
         # Configures default values
         epoch = time.mktime(time.localtime())
@@ -86,5 +101,5 @@ class CherryTree:
 if __name__ == '__main__':
 
     chr = CherryTree()
-    chr.insert('host', '192.168.0.2')
+    #chr.insert('host', '192.168.0.2')
     chr.close()
