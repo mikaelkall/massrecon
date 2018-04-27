@@ -84,14 +84,12 @@ class CherryTree:
                                                                                                           ts_creation,
                                                                                                           ts_lastsave)
         # Add node
-        print(_sql)
         cur = self.conn.cursor()
         cur.execute(_sql)
         self.conn.commit()
 
         # Add children
         _sql = "INSERT INTO children VALUES (%s,%s,%s)" % (node_id, self.LEVEL[on_level], 1)
-        print(_sql)
         cur.execute(_sql)
         self.conn.commit()
 
