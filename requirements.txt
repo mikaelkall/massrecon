@@ -1,1 +1,2 @@
 halo==0.0.12
+configparser==3.5.0
