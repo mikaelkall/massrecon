@@ -10,7 +10,6 @@ import os
 import signal
 
 from librecon.librecon import *
-from librecon.cherrytree import *
 
 sys.path.insert(1, os.path.join(sys.path[0], '../'))
 
@@ -44,8 +43,6 @@ General Options
 
 
 if __name__ == '__main__':
-
-    CherryTree()
 
     if len(sys.argv) < 2:
         __usage()
