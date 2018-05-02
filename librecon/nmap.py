@@ -7,6 +7,7 @@
 __author__ = 'kall.micke@gmail.com'
 
 import subprocess
+import os
 import re
 
 from configuration import *
@@ -33,6 +34,11 @@ class Nmap:
             self.module_disable = True
             return
 
+        if os.path.isfile('/usr/bin/nmap') is False:
+            utils.puts('info', 'Nmap is not installed')
+            self.module_disable = True
+            return
+
         if self.cfg.config.get('massrecon', 'directory_log') == 'True':
             self.directory_log = True
 
@@ -55,26 +61,58 @@ class Nmap:
             return
 
         # Nmap stage1
-        with Halo(text='Nmap stage1', spinner='dots'):
+        with Halo(text='%sNMAP STAGE[1]%s' % (color.blue, color.reset), spinner='dots'):
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("nmap -sT -oA %s/%s %s" % (self.nmap_dir, self.hostname, self.hostname))
+                    output = subprocess.getoutput("nmap -sT -oA %s/stage1 %s" % (self.nmap_dir, self.hostname))
                 else:
                     output = subprocess.getoutput("nmap -sT %s" % self.hostname)
             except:
                 pass
+
         # Save ports
         regxp = re.compile('([0-9]+)/tcp[ ]+open')
         self.ports = regxp.findall(output)
 
-        print("%s=%s" % (color.red, color.reset) * 40)
+        print("%s=%s" % (color.red, color.reset) * 90)
         print("%s NMAP_STAGE_1: %s %s" % (color.yellow, self.hostname, color.reset))
-        print("%s=%s" % (color.red, color.reset) * 40)
+        print("%s=%s" % (color.red, color.reset) * 90)
 
         for port in self.ports:
-            utils.puts('success', "%s open" % port)
-        print("%s-%s" % (color.red, color.reset) * 40)
+            utils.puts('success', "%s/tcp open" % port)
+        print("%s-%s" % (color.red, color.reset) * 90)
+
+    def scan_stage_2(self):
+
+        if len(self.ports) == 0:
+            return
+
+        color = Colors()
+
+        if self.module_disable is True:
+            return
+
+        # Nmap stage1
+        with Halo(text='%sNMAP STAGE[2]%s' % (color.blue, color.reset), spinner='dots'):
+            try:
+                if self.directory_log is True:
+                    output = subprocess.getoutput("nmap -sV -oA %s/stage2 -A -p %s  %s" % (self.nmap_dir, ','.join(self.ports), self.hostname))
+                else:
+                    output = subprocess.getoutput("nmap -sV -A -p %s %s" % (''.join(self.ports), self.hostname))
+            except:
+                pass
+
+            print("\n")
+            print("%s=%s" % (color.red, color.reset) * 90)
+            print("%s NMAP_STAGE_2: %s %s" % (color.yellow, self.hostname, color.reset))
+            print("%s=%s" % (color.red, color.reset) * 90)
+            print('%s%s%s' % (color.green, output, color.reset))
+            print("%s-%s" % (color.red, color.reset) * 90)
+            print("\n")
+
 
 if __name__ == '__main__':
 
-    Nmap(hostname='127.0.0.1').scan_stage_1()
+    np = Nmap(hostname='127.0.0.1')
+    np.scan_stage_1()
+    np.scan_stage_2()
