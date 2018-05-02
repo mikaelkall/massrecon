@@ -9,7 +9,9 @@ import sqlite3
 import time
 import os
 
+from configuration import *
 from utils import *
+
 
 class CherryTree:
 
@@ -17,7 +19,14 @@ class CherryTree:
 
         self.LEVEL = {'root': 0, 'host': 1, 'recon': 2, 'nmap': 3}
 
-        db_file = os.path.join(os.path.dirname(__file__), '../.db/massrecon.ctb')
+        # Load configuration
+        cfg = Configuration()
+
+        if cfg.config.get('massrecon', 'cherrytree_log') != 'True':
+            utils.puts('info', 'cherrytree is disabled')
+            return
+
+        db_file = '%s/massrecon.ctb' % cfg.config_dir
 
         if os.path.exists(db_file) is False:
             utils.puts('info', 'database was not found, I will create it for you.')
@@ -98,6 +107,7 @@ class CherryTree:
 
 if __name__ == '__main__':
 
-    chr = CherryTree()
+    pass
+    #chr = CherryTree()
     #chr.insert('host', '192.168.0.2')
-    chr.close()
+    #chr.close()
