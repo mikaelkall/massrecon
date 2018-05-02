@@ -23,7 +23,7 @@ class CherryTree:
         cfg = Configuration()
 
         if cfg.config.get('massrecon', 'cherrytree_log') != 'True':
-            utils.puts('info', 'cherrytree is disabled')
+            utils.puts('info', 'CherryTree module is disabled')
             return
 
         db_file = '%s/massrecon.ctb' % cfg.config_dir

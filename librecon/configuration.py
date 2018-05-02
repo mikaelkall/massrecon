@@ -28,12 +28,16 @@ class Configuration:
 
         self.config.read('%s/massrecon.ini' % self.config_dir)
 
+        if os.path.isdir('%s/results' % self.config_dir) is False:
+            os.makedirs('%s/results' % self.config_dir, exist_ok=True)
+
     def create_default_config(self):
 
         cfgfile = open('%s/massrecon.ini' % self.config_dir, 'w')
         self.config.add_section('massrecon')
         self.config.set('massrecon', 'cherrytree_log', 'True')
         self.config.set('massrecon', 'directory_log', 'True')
+        self.config.set('massrecon', 'nmap', 'True')
         self.config.write(cfgfile)
 
 

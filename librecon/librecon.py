@@ -12,4 +12,5 @@ class Librecon:
         pass
 
     def run(self):
+        print("ok")
         pass
