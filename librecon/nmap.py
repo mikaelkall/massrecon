@@ -11,6 +11,7 @@ import os
 import re
 
 from configuration import *
+from cherrytree import *
 from utils import *
 from halo import Halo
 from colors import *
@@ -23,6 +24,8 @@ class Nmap:
         self.hostname = hostname
         self.module_disable = False
         self.directory_log = False
+
+        self.chr = CherryTree()
 
         # Load configuration
         self.cfg = Configuration()
@@ -41,6 +44,9 @@ class Nmap:
 
         if self.cfg.config.get('massrecon', 'directory_log') == 'True':
             self.directory_log = True
+
+        if self.cfg.config.get('massrecon', 'cherrytree_log') == 'True':
+            self.cherrytree_log = True
 
         if len(self.hostname) == 0:
             utils.puts('warning', 'No host to scan')
@@ -82,6 +88,10 @@ class Nmap:
             utils.puts('success', "%s/tcp open" % port)
         print("%s-%s" % (color.red, color.reset) * 90)
 
+        if self.cherrytree_log is True:
+            self.chr.insert('host', self.hostname)
+            self.chr.insert('nmap', output)
+
     def scan_stage_2(self):
 
         if len(self.ports) == 0:
@@ -110,6 +120,9 @@ class Nmap:
             print("%s-%s" % (color.red, color.reset) * 90)
             print("\n")
 
+        if self.cherrytree_log is True:
+            self.chr.insert('host', self.hostname)
+            self.chr.insert('nmap', output)
 
 if __name__ == '__main__':
 

@@ -29,7 +29,7 @@ class CherryTree:
         db_file = '%s/massrecon.ctb' % cfg.config_dir
 
         if os.path.exists(db_file) is False:
-            utils.puts('info', 'database was not found, I will create it for you.')
+            utils.puts('info', 'CherryTree database not found. Created it.')
             self.conn = sqlite3.connect(db_file)
             self.setup_database()
         else:
@@ -50,6 +50,19 @@ class CherryTree:
 
         if len(data) == 0:
             return
+
+        # Avoid duplicates
+        if on_level == 'host':
+            try:
+                cur = self.conn.cursor()
+                cur.execute("SELECT name FROM node WHERE name='%s'" % data)
+                tb_name = str(cur.fetchone()[0])
+                if tb_name == data:
+                    cur.close()
+                    return
+                cur.close()
+            except:
+                pass
 
         if on_level not in self.LEVEL.keys():
             utils.puts('info', 'The input level do not match the levels configured')
@@ -107,7 +120,35 @@ class CherryTree:
 
 if __name__ == '__main__':
 
-    pass
-    #chr = CherryTree()
-    #chr.insert('host', '192.168.0.2')
-    #chr.close()
+
+    stage_1 = """✔ 631/tcp open
+✔ 7000/tcp open
+    """
+    #print(stage_1)
+
+    stage_2 = """
+Starting Nmap 7.70 ( https://nmap.org ) at 2018-05-02 15:34 CEST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000069s latency).
+
+PORT     STATE SERVICE VERSION
+631/tcp  open  ipp     CUPS 2.2
+| http-methods: 
+|_  Potentially risky methods: PUT
+| http-robots.txt: 1 disallowed entry 
+|_/
+|_http-server-header: CUPS/2.2 IPP/2.1
+|_http-title: Home - CUPS 2.2.7
+7000/tcp open  http    Golang net/http server (Go-IPFS json-rpc or InfluxDB API)
+|_http-title: Site doesn't have a title (text/plain; charset=utf-8).
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 21.42 seconds
+"""
+
+    #print(stage_2)
+
+    chr = CherryTree()
+    chr.insert('host', '127.0.0.1')
+    chr.insert('nmap', stage_2)
+    chr.close()
