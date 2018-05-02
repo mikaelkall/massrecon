@@ -17,7 +17,7 @@ class CherryTree:
 
     def __init__(self):
 
-        self.LEVEL = {'root': 0, 'host': 1, 'recon': 2, 'nmap': 3}
+        self.LEVEL = {'root': 0, 'machines': 1, 'host': 2, 'recon': 3, 'nmap_stage1': 4, 'nmap_stage2': 5}
 
         # Load configuration
         cfg = Configuration()
@@ -46,7 +46,7 @@ class CherryTree:
 
         self.insert('root', 'machines')
 
-    def insert(self, on_level='', data=''):
+    def insert(self, on_level='', data='', text=''):
 
         if len(data) == 0:
             return
@@ -80,7 +80,7 @@ class CherryTree:
         epoch = time.mktime(time.localtime())
 
         name = data
-        txt = '<?xml version="1.0"?><node><rich_text></rich_text></node> '
+        txt = '<?xml version="1.0"?><node><rich_text>%s</rich_text></node> ' % text
         syntax = 'customer-colors'
         tags = 0
         is_ro = 0
@@ -92,22 +92,22 @@ class CherryTree:
         ts_creation = epoch
         ts_lastsave = epoch
 
-        _sql = "INSERT INTO node VALUES (%s, '%s','%s', '%s', %s, %s, %s, %s, %s, %s, %s, '%s', '%s')" % (node_id,
-                                                                                                          name,
-                                                                                                          txt,
-                                                                                                          syntax,
-                                                                                                          tags,
-                                                                                                          is_ro,
-                                                                                                          is_rightxt,
-                                                                                                          has_codebox,
-                                                                                                          has_table,
-                                                                                                          has_image,
-                                                                                                          level,
-                                                                                                          ts_creation,
-                                                                                                          ts_lastsave)
         # Add node
         cur = self.conn.cursor()
-        cur.execute(_sql)
+
+        cur.execute('INSERT INTO node VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', (node_id,
+                                                                            name,
+                                                                            txt,
+                                                                            syntax,
+                                                                            tags,
+                                                                            is_ro,
+                                                                            is_rightxt,
+                                                                            has_codebox,
+                                                                            has_table,
+                                                                            has_image,
+                                                                            level,
+                                                                            ts_creation,
+                                                                            ts_lastsave))
         self.conn.commit()
 
         # Add children
@@ -126,8 +126,7 @@ if __name__ == '__main__':
     """
     #print(stage_1)
 
-    stage_2 = """
-Starting Nmap 7.70 ( https://nmap.org ) at 2018-05-02 15:34 CEST
+    stage_2 = """Starting Nmap 7.70 ( https://nmap.org ) at 2018-05-02 15:34 CEST
 Nmap scan report for localhost (127.0.0.1)
 Host is up (0.000069s latency).
 
@@ -150,5 +149,6 @@ Nmap done: 1 IP address (1 host up) scanned in 21.42 seconds
 
     chr = CherryTree()
     chr.insert('host', '127.0.0.1')
-    chr.insert('nmap', stage_2)
+    chr.insert('recon', 'recon')
+    chr.insert('nmap_stage2', 'nmap_stage_2', stage_2)
     chr.close()
