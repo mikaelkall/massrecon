@@ -17,8 +17,6 @@ class CherryTree:
 
     def __init__(self):
 
-        self.LEVEL = {'root': 0, 'machines': 1, 'host': 2, 'recon': 3, 'nmap_stage1': 4, 'nmap_stage2': 5}
-
         # Load configuration
         cfg = Configuration()
 
@@ -46,41 +44,51 @@ class CherryTree:
 
         self.insert('root', 'machines')
 
-    def insert(self, on_level='', data='', text=''):
+    def insert(self, name='', newleaf='', txt=''):
 
-        if len(data) == 0:
+        node_id = None
+        next_id = None
+
+        if len(name) == 0:
             return
 
-        # Avoid duplicates
-        if on_level == 'host':
+        try:
+            cur = self.conn.cursor()
+            cur.execute("SELECT node_id FROM node WHERE name='%s'" % name)
+            node_id = int(cur.fetchone()[0])
+            cur.close()
+        except:
+            pass
+
+        # Node already exists
+        if node_id is not None and len(newleaf) == 0:
+            return
+
+        if node_id is None:
             try:
                 cur = self.conn.cursor()
-                cur.execute("SELECT name FROM node WHERE name='%s'" % data)
-                tb_name = str(cur.fetchone()[0])
-                if tb_name == data:
+                cur.execute("SELECT name FROM node WHERE name='%s'" % newleaf)
+                tbl_leaf = str(cur.fetchone()[0])
+                if newleaf == tbl_leaf:
                     cur.close()
                     return
                 cur.close()
             except:
                 pass
 
-        if on_level not in self.LEVEL.keys():
-            utils.puts('info', 'The input level do not match the levels configured')
-            return False
-
         try:
             cur = self.conn.cursor()
             cur.execute('SELECT max(node_id) FROM node')
-            node_id = int(cur.fetchone()[0]) + 1
+            next_id = int(cur.fetchone()[0]) + 1
             cur.close()
         except:
-            node_id = 1
+            node_id = 0
+            next_id = 1
 
         # Configures default values
         epoch = time.mktime(time.localtime())
 
-        name = data
-        txt = '<?xml version="1.0"?><node><rich_text>%s</rich_text></node> ' % text
+        txt = '<?xml version="1.0"?><node><rich_text>%s</rich_text></node> ' % txt
         syntax = 'customer-colors'
         tags = 0
         is_ro = 0
@@ -95,7 +103,10 @@ class CherryTree:
         # Add node
         cur = self.conn.cursor()
 
-        cur.execute('INSERT INTO node VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', (node_id,
+        if len(newleaf) > 0:
+            name = newleaf
+
+        cur.execute('INSERT INTO node VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', (next_id,
                                                                             name,
                                                                             txt,
                                                                             syntax,
@@ -111,7 +122,7 @@ class CherryTree:
         self.conn.commit()
 
         # Add children
-        _sql = "INSERT INTO children VALUES (%s,%s,%s)" % (node_id, self.LEVEL[on_level], 1)
+        _sql = "INSERT INTO children VALUES (%s,%s,%s)" % (next_id, node_id, 1)
         cur.execute(_sql)
         self.conn.commit()
 
@@ -148,7 +159,6 @@ Nmap done: 1 IP address (1 host up) scanned in 21.42 seconds
     #print(stage_2)
 
     chr = CherryTree()
-    chr.insert('host', '127.0.0.1')
-    chr.insert('recon', 'recon')
-    chr.insert('nmap_stage2', 'nmap_stage_2', stage_2)
+    chr.insert(name='machines', newleaf='127.0.0.2', txt='')
+    chr.insert(name='127.0.0.2', newleaf='nmap_stage1', txt=stage_2)
     chr.close()
