@@ -15,7 +15,12 @@ from utils import *
 
 class CherryTree:
 
-    def __init__(self):
+    def __init__(self, address=''):
+
+        if len(address) == 0:
+            return
+
+        self.address = address
 
         # Load configuration
         cfg = Configuration()
@@ -44,13 +49,9 @@ class CherryTree:
 
         self.insert('root', 'machines')
 
-    def insert(self, name='', newleaf='', txt=''):
+    def get_node_id(self, name):
 
-        node_id = None
-        next_id = None
-
-        if len(name) == 0:
-            return
+        node_id = 0
 
         try:
             cur = self.conn.cursor()
@@ -60,21 +61,11 @@ class CherryTree:
         except:
             pass
 
-        # Node already exists
-        if node_id is not None and len(newleaf) == 0:
-            return
+        return node_id
 
-        if node_id is None:
-            try:
-                cur = self.conn.cursor()
-                cur.execute("SELECT name FROM node WHERE name='%s'" % newleaf)
-                tbl_leaf = str(cur.fetchone()[0])
-                if newleaf == tbl_leaf:
-                    cur.close()
-                    return
-                cur.close()
-            except:
-                pass
+    def get_next_node_id(self):
+
+        next_id = 1
 
         try:
             cur = self.conn.cursor()
@@ -82,8 +73,40 @@ class CherryTree:
             next_id = int(cur.fetchone()[0]) + 1
             cur.close()
         except:
-            node_id = 0
-            next_id = 1
+            pass
+
+        return next_id
+
+    def check_if_exist(self, name=''):
+
+        try:
+            cur = self.conn.cursor()
+            cur.execute("select name from node where name='%s'" % name)
+            chk_name = str(cur.fetchone()[0])
+            cur.close()
+        except:
+            pass
+
+        if name == chk_name:
+            return True
+        else:
+            return False
+
+    def insert(self, name='', leaf='', txt=''):
+
+        node_id = None
+        next_id = None
+
+        if len(name) == 0 or leaf == 0:
+            return
+
+        # Avoid dublicates
+        if leaf == self.address:
+            if self.check_if_exist(name=leaf) is True:
+                return
+
+        node_id = self.get_node_id(name=name)
+        next_id = self.get_next_node_id()
 
         # Configures default values
         epoch = time.mktime(time.localtime())
@@ -103,8 +126,8 @@ class CherryTree:
         # Add node
         cur = self.conn.cursor()
 
-        if len(newleaf) > 0:
-            name = newleaf
+        if len(leaf) > 0:
+            name = leaf
 
         cur.execute('INSERT INTO node VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', (next_id,
                                                                             name,
@@ -130,35 +153,4 @@ class CherryTree:
         self.conn.close()
 
 if __name__ == '__main__':
-
-
-    stage_1 = """✔ 631/tcp open
-✔ 7000/tcp open
-    """
-    #print(stage_1)
-
-    stage_2 = """Starting Nmap 7.70 ( https://nmap.org ) at 2018-05-02 15:34 CEST
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000069s latency).
-
-PORT     STATE SERVICE VERSION
-631/tcp  open  ipp     CUPS 2.2
-| http-methods: 
-|_  Potentially risky methods: PUT
-| http-robots.txt: 1 disallowed entry 
-|_/
-|_http-server-header: CUPS/2.2 IPP/2.1
-|_http-title: Home - CUPS 2.2.7
-7000/tcp open  http    Golang net/http server (Go-IPFS json-rpc or InfluxDB API)
-|_http-title: Site doesn't have a title (text/plain; charset=utf-8).
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 21.42 seconds
-"""
-
-    #print(stage_2)
-
-    chr = CherryTree()
-    chr.insert(name='machines', newleaf='127.0.0.2', txt='')
-    chr.insert(name='127.0.0.2', newleaf='nmap_stage1', txt=stage_2)
-    chr.close()
+    pass
