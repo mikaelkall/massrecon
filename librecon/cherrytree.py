@@ -9,8 +9,8 @@ import sqlite3
 import time
 import os
 
-from configuration import *
-from utils import *
+from librecon.configuration import *
+from librecon.utils import *
 
 
 class CherryTree:
@@ -87,9 +87,12 @@ class CherryTree:
         except:
             pass
 
-        if name == chk_name:
-            return True
-        else:
+        try:
+            if name == chk_name:
+                return True
+            else:
+                return False
+        except:
             return False
 
     def insert(self, name='', leaf='', txt=''):

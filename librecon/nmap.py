@@ -7,14 +7,15 @@
 __author__ = 'kall.micke@gmail.com'
 
 import subprocess
+import time
 import os
 import re
 
-from configuration import *
-from cherrytree import *
-from utils import *
+from librecon.configuration import *
+from librecon.cherrytree import *
+from librecon.utils import *
 from halo import Halo
-from colors import *
+from librecon.colors import *
 
 
 class Nmap:
@@ -25,7 +26,7 @@ class Nmap:
         self.module_disable = False
         self.directory_log = False
 
-        self.chr = CherryTree()
+        self.chr = CherryTree(address=hostname)
 
         # Load configuration
         self.cfg = Configuration()
@@ -89,8 +90,11 @@ class Nmap:
         print("%s-%s" % (color.red, color.reset) * 90)
 
         if self.cherrytree_log is True:
-            self.chr.insert('host', self.hostname)
-            self.chr.insert('nmap', output)
+
+            _leaf_name = 'nmap_stage1_%s' % time.strftime("%Y%m%d_%H:%M:%S")
+
+            self.chr.insert(name='machines', leaf=self.hostname)
+            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
 
     def scan_stage_2(self):
 
@@ -121,11 +125,15 @@ class Nmap:
             print("\n")
 
         if self.cherrytree_log is True:
-            self.chr.insert('host', self.hostname)
-            self.chr.insert('nmap', output)
+
+            _leaf_name = 'nmap_stage2_%s' % time.strftime("%Y%m%d_%H:%M:%S")
+
+            self.chr.insert(name='machines', leaf=self.hostname)
+            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
+
 
 if __name__ == '__main__':
-
-    np = Nmap(hostname='127.0.0.1')
-    np.scan_stage_1()
-    np.scan_stage_2()
+    pass
+    #np = Nmap(hostname='127.0.0.1')
+    #np.scan_stage_1()
+    #np.scan_stage_2()

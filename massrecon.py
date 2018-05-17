@@ -48,7 +48,9 @@ if __name__ == '__main__':
         __usage()
 
     opt = sys.argv[1].strip()
+    ip = sys.argv[2].strip()
+
     if opt.lower() == "recon":
-        Librecon().run()
+        Librecon().run(ip=ip)
     else:
         __usage()
