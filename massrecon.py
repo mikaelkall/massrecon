@@ -37,6 +37,7 @@ Usage: massrecon [OPTIONS]
 General Options
 
    recon <ip>\t\tStart recon target
+   nmap  <ip>\t\tRun nmap module only
 """)
 
     sys.exit(0)
@@ -52,5 +53,9 @@ if __name__ == '__main__':
 
     if opt.lower() == "recon":
         Librecon().run(ip=ip)
+
+    if opt.lower() == "nmap":
+        Librecon().nmap(ip=ip)
+
     else:
         __usage()
