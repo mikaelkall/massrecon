@@ -7,6 +7,7 @@
 __author__ = 'kall.micke@gmail.com'
 
 from librecon.nmap import *
+from librecon.dirb import *
 
 class Librecon:
 
@@ -23,6 +24,8 @@ class Librecon:
         np.scan_stage_1()
         np.scan_stage_2()
 
+        db = Dirb(hostname=ip)
+        db.dirb_stage_1()
     '''
     Initiate nmap module only
     '''
@@ -31,3 +34,11 @@ class Librecon:
         np = Nmap(hostname=ip)
         np.scan_stage_1()
         np.scan_stage_2()
+
+    '''
+    Initiate dirb module only
+    '''
+    def dirb(self, ip = ''):
+        # Starts nmap scan
+        db = Dirb(hostname=ip)
+        db.dirb_stage_1()

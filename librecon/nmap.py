@@ -10,12 +10,20 @@ import subprocess
 import time
 import os
 import re
+import signal
+import sys
 
 from librecon.configuration import *
 from librecon.cherrytree import *
 from librecon.utils import *
 from halo import Halo
 from librecon.colors import *
+
+# Handler to exist cleanly on ctrl+C
+def signal_handler(signal, frame):
+    print("\nYou pressed Ctrl+C!")
+    sys.exit()
+signal.signal(signal.SIGINT, signal_handler)
 
 
 class Nmap:
@@ -134,6 +142,3 @@ class Nmap:
 
 if __name__ == '__main__':
     pass
-    #np = Nmap(hostname='127.0.0.1')
-    #np.scan_stage_1()
-    #np.scan_stage_2()
