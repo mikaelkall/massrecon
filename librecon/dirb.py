@@ -28,11 +28,12 @@ signal.signal(signal.SIGINT, signal_handler)
 
 class Dirb:
 
-    def __init__(self, hostname=''):
+    def __init__(self, hostname='', ssl=False):
 
         self.hostname = hostname
         self.module_disable = False
         self.directory_log = False
+        self.ssl = ssl
 
         self.chr = CherryTree(address=hostname)
 
@@ -75,27 +76,33 @@ class Dirb:
             return
 
         # Nmap stage1
-        with Halo(text='%sDIRB STAGE[1]%s' % (color.blue, color.reset), spinner='dots'):
+        with Halo(text='%sDIRB STAGE%s' % (color.blue, color.reset), spinner='dots'):
+
+            if self.ssl is True:
+                proto = 'https'
+            else:
+                proto = 'http'
+
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("dirb http://%s %s -X .php,.txt,.sh -o %s/dirb_stage1" % (self.hostname, self.wordlist, self.dirb_dir))
+                    output = subprocess.getoutput("dirb %s://%s %s -X .php,.txt,.sh -o %s/dirb_stage1" % (proto, self.hostname, self.wordlist, self.dirb_dir))
                 else:
-                    output = subprocess.getoutput("dirb http://%s %s -X .php,.txt,.sh" % self.hostname, self.wordlist)
+                    output = subprocess.getoutput("dirb %s://%s %s -X .php,.txt,.sh" % (proto, self.hostname, self.wordlist))
             except:
                 pass
 
-        print("\n")
-        print("%s=%s" % (color.red, color.reset) * 90)
-        print("%s DIRB_STAGE_1: %s %s" % (color.yellow, self.hostname, color.reset))
-        print("%s=%s" % (color.red, color.reset) * 90)
-        print('%s%s%s' % (color.green, output, color.reset))
-        print("%s-%s" % (color.red, color.reset) * 90)
-        print("\n")
+        len(output) > 2:
+            print("\n")
+            print("%s=%s" % (color.red, color.reset) * 90)
+            print("%s DIRB_STAGE_1: %s %s" % (color.yellow, self.hostname, color.reset))
+            print("%s=%s" % (color.red, color.reset) * 90)
+            print('%s%s%s' % (color.green, output, color.reset))
+            print("%s-%s" % (color.red, color.reset) * 90)
+            print("\n")
 
-        if self.cherrytree_log is True and len(output)>2:
+        if self.cherrytree_log is True and len(output) > 2:
 
-            _leaf_name = 'dirb_stage1_%s' % time.strftime("%Y%m%d_%H:%M:%S")
+            _leaf_name = 'dirb_stage_%s' % time.strftime("%Y%m%d_%H:%M:%S")
 
             self.chr.insert(name='machines', leaf=self.hostname)
             self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
-
