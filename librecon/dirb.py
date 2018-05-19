@@ -85,9 +85,9 @@ class Dirb:
 
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("dirb %s://%s %s -X .php,.txt,.sh -o %s/dirb_stage1" % (proto, self.hostname, self.wordlist, self.dirb_dir))
+                    output = subprocess.getoutput("dirb %s://%s %s -w -X .php,.txt,.sh -o %s/dirb_stage1" % (proto, self.hostname, self.wordlist, self.dirb_dir))
                 else:
-                    output = subprocess.getoutput("dirb %s://%s %s -X .php,.txt,.sh" % (proto, self.hostname, self.wordlist))
+                    output = subprocess.getoutput("dirb %s://%s %s -w -X .php,.txt,.sh" % (proto, self.hostname, self.wordlist))
             except:
                 pass
 
