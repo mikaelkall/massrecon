@@ -63,9 +63,13 @@ class Dirb:
             if os.path.isdir(self.dirb_dir) is False:
                 os.makedirs(self.dirb_dir, exist_ok=True)
 
+        self.wordlist = self.cfg.config.get('massrecon', 'dirb_wordlist')
+
+
     def dirb_stage_1(self):
 
         color = Colors()
+        output = ''
 
         if self.module_disable is True:
             return
@@ -74,9 +78,9 @@ class Dirb:
         with Halo(text='%sDIRB STAGE[1]%s' % (color.blue, color.reset), spinner='dots'):
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("dirb http://%s /usr/share/dirbuster/directory-list-lowercase-2.3-medium.txt -X .php,.txt,.sh -o %s/dirb_stage1" % (self.hostname, self.dirb_dir))
+                    output = subprocess.getoutput("dirb http://%s %s -X .php,.txt,.sh -o %s/dirb_stage1" % (self.hostname, self.wordlist, self.dirb_dir))
                 else:
-                    output = subprocess.getoutput("dirb http://%s /usr/share/dirbuster/directory-list-lowercase-2.3-medium.txt -X .php,.txt,.sh" % self.hostname)
+                    output = subprocess.getoutput("dirb http://%s %s -X .php,.txt,.sh" % self.hostname, self.wordlist)
             except:
                 pass
 
@@ -88,7 +92,7 @@ class Dirb:
         print("%s-%s" % (color.red, color.reset) * 90)
         print("\n")
 
-        if self.cherrytree_log is True:
+        if self.cherrytree_log is True and len(output)>2:
 
             _leaf_name = 'dirb_stage1_%s' % time.strftime("%Y%m%d_%H:%M:%S")
 
