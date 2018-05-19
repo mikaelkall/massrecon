@@ -91,7 +91,7 @@ class Dirb:
             except:
                 pass
 
-        len(output) > 2:
+        if len(output) > 2:
             print("\n")
             print("%s=%s" % (color.red, color.reset) * 90)
             print("%s DIRB_STAGE_1: %s %s" % (color.yellow, self.hostname, color.reset))
