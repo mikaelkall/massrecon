@@ -24,8 +24,16 @@ class Librecon:
         np.scan_stage_1()
         np.scan_stage_2()
 
-        db = Dirb(hostname=ip)
-        db.dirb_stage_1()
+        # Port 80 is open spider target.
+        if '80' in np.ports:
+            db = Dirb(hostname=ip, ssl=False)
+            db.dirb_stage_1()
+
+        # Port 443 is open spider target.
+        if '443' in np.ports:
+            db = Dirb(hostname=ip, ssl=True)
+            db.dirb_stage_1()
+
     '''
     Initiate nmap module only
     '''
@@ -36,9 +44,12 @@ class Librecon:
         np.scan_stage_2()
 
     '''
-    Initiate dirb module only
+    Initiate Dirb module only
     '''
     def dirb(self, ip = ''):
         # Starts nmap scan
-        db = Dirb(hostname=ip)
+        db = Dirb(hostname=ip, ssl=False)
+        db.dirb_stage_1()
+
+        db = Dirb(hostname=ip, ssl=True)
         db.dirb_stage_1()
