@@ -11,9 +11,17 @@ is to automate this procedure by start all reconissance tools and enumeration
 and automaticly import the results to CherryTree so you can focus on exploitation instead
 of look for the weakest link.
 
+## Install
+
+Install package and you will have /usr/bin/massrecon.py ready for usage.
+
+```sh
+sudo python setup.py install
+```
+
 ## Prerequisites
 
-Install python dependencies or use virtualenv
+For development you need to install these dependencies. Do this or use virtualenv
 
 ```sh
 sudo pip install -r requirements.txt
