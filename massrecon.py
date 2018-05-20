@@ -23,7 +23,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 
 def __usage():
-    print ("""
+    print("""
 ███╗   ███╗ █████╗ ███████╗███████╗██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
 ████╗ ████║██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
 ██╔████╔██║███████║███████╗███████╗██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║
@@ -49,17 +49,22 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         __usage()
 
-    opt = sys.argv[1].strip()
-    ip = sys.argv[2].strip()
+    try:
+        opt = sys.argv[1].strip()
+        ip = sys.argv[2].strip()
+    except:
+        __usage()
 
     if opt.lower() == "recon":
         Librecon().run(ip=ip)
+        sys.exit(0)
 
     if opt.lower() == "nmap":
         Librecon().nmap(ip=ip)
+        sys.exit(0)
 
     if opt.lower() == "dirb":
         Librecon().dirb(ip=ip)
-
+        sys.exit(0)
     else:
         __usage()

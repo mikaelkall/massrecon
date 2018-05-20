@@ -24,14 +24,14 @@ class Librecon:
         np.scan_stage_1()
         np.scan_stage_2()
 
-        # Port 80 is open spider target.
-        if '80' in np.ports:
-            db = Dirb(hostname=ip, ssl=False)
-            db.dirb_stage_1()
-
         # Port 443 is open spider target.
         if '443' in np.ports:
             db = Dirb(hostname=ip, ssl=True)
+            db.dirb_stage_1()
+
+        # Port 80 is open spider target.
+        if '80' in np.ports:
+            db = Dirb(hostname=ip, ssl=False)
             db.dirb_stage_1()
 
     '''
