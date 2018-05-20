@@ -7,6 +7,7 @@
 __author__ = 'kall.micke@gmail.com'
 
 import subprocess
+import shlex
 import time
 import os
 import re
@@ -66,6 +67,16 @@ class Dirb:
 
         self.wordlist = self.cfg.config.get('massrecon', 'dirb_wordlist')
 
+    def run_command(self, command):
+        process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+        while True:
+            output = process.stdout.readline()
+            if output == '' and process.poll() is not None:
+                break
+            if output:
+                print(" " + output.strip().decode())
+        rc = process.poll()
+        return rc
 
     def dirb_stage_1(self):
 
@@ -75,8 +86,8 @@ class Dirb:
         if self.module_disable is True:
             return
 
-        # Nmap stage1
-        with Halo(text='%sDIRB STAGE%s' % (color.blue, color.reset), spinner='dots'):
+        # gobuster spidering
+        with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
 
             if self.ssl is True:
                 proto = 'https'
@@ -85,20 +96,11 @@ class Dirb:
 
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("dirb %s://%s %s -w -X .php,.txt,.sh -o %s/dirb_stage1" % (proto, self.hostname, self.wordlist, self.dirb_dir))
+                    output = self.run_command("gobuster -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (proto, self.hostname, self.wordlist, self.dirb_dir))
                 else:
-                    output = subprocess.getoutput("dirb %s://%s %s -w -X .php,.txt,.sh" % (proto, self.hostname, self.wordlist))
+                    output = self.run_command("gobuster -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (proto, self.hostname, self.wordlist))
             except:
                 pass
-
-        if len(output) > 2:
-            print("\n")
-            print("%s=%s" % (color.red, color.reset) * 90)
-            print("%s DIRB_STAGE_1: %s %s" % (color.yellow, self.hostname, color.reset))
-            print("%s=%s" % (color.red, color.reset) * 90)
-            print('%s%s%s' % (color.green, output, color.reset))
-            print("%s-%s" % (color.red, color.reset) * 90)
-            print("\n")
 
         if self.cherrytree_log is True and len(output) > 2:
 
