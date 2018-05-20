@@ -40,8 +40,6 @@ Cache entry deserialization failed, entry ignored
 ## Usage
 
 ```sh
- ./massrecon.py
-
 ███╗   ███╗ █████╗ ███████╗███████╗██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
 ████╗ ████║██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
 ██╔████╔██║███████║███████╗███████╗██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║
@@ -55,40 +53,40 @@ Usage: massrecon [OPTIONS]
 General Options
 
    recon <ip>		Start recon target
-
+   nmap  <ip>		Run nmap module only
+   dirb  <ip>		Run dirb module only
  ```
 
-
-Run scanner
+## Start scanning
 
 ```sh
-$ ./massrecon.py recon 127.0.0.1
+$ ./massrecon.py recon 10.10.10.88
 ==========================================================================================
- NMAP_STAGE_1: 127.0.0.1
+ NMAP_STAGE_1: 10.10.10.88
 ==========================================================================================
-   ✔ 631/tcp open
+   ✔ 80/tcp open
 ------------------------------------------------------------------------------------------
-⠋ NMAP STAGE[2]
+⠹ NMAP STAGE[2]
 
 ==========================================================================================
- NMAP_STAGE_2: 127.0.0.1
+ NMAP_STAGE_2: 10.10.10.88
 ==========================================================================================
-Starting Nmap 7.70 ( https://nmap.org ) at 2018-05-17 15:22 CEST
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.000094s latency).
+Starting Nmap 7.70 ( https://nmap.org ) at 2018-05-20 15:58 CEST
+Nmap scan report for 10.10.10.88
+Host is up (0.059s latency).
 
-PORT    STATE SERVICE VERSION
-631/tcp open  ipp     CUPS 2.2
-| http-methods:
-|_  Potentially risky methods: PUT
-| http-robots.txt: 1 disallowed entry
-|_/
-|_http-server-header: CUPS/2.2 IPP/2.1
-|_http-title: Home - CUPS 2.2.7
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-title: Landing Page
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 6.38 seconds
+Nmap done: 1 IP address (1 host up) scanned in 15.09 seconds
 ------------------------------------------------------------------------------------------
+
+
+   ✔ http://10.10.10.88/robots.txt
+   ➜ Spider: http://10.10.10.88/webservices/tar/tar/source/
+   ➜ Spider: http://10.10.10.88/webservices/monstra-3.0.4/
  ```
 
 ## Cherrytree
