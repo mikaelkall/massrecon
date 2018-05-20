@@ -30,7 +30,7 @@ def __usage():
 ██║╚██╔╝██║██╔══██║╚════██║╚════██║██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
 ██║ ╚═╝ ██║██║  ██║███████║███████║██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
 ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
-[kall.micke@gmail.com] [Scans and updates CherryTree]                                                                                           
+[nighter@nighter.se] [Scans and updates CherryTree]                                                                                           
 
 Usage: massrecon [OPTIONS]
 

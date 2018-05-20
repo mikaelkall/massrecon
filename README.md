@@ -46,7 +46,7 @@ Cache entry deserialization failed, entry ignored
 ██║╚██╔╝██║██╔══██║╚════██║╚════██║██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
 ██║ ╚═╝ ██║██║  ██║███████║███████║██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
 ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
-[kall.micke@gmail.com] [Scans and updates CherryTree]
+[nighter@nighter.se] [Scans and updates CherryTree]
 
 Usage: massrecon [OPTIONS]
 
