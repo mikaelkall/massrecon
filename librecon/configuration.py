@@ -8,7 +8,11 @@ __author__ = 'kall.micke@gmail.com'
 import configparser
 import os
 
-from librecon.utils import *
+try:
+    from librecon.utils import *
+except:
+    from utils import *
+
 from pathlib import Path
 
 class Configuration:

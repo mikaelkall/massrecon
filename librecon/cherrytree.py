@@ -9,8 +9,12 @@ import sqlite3
 import time
 import os
 
-from librecon.configuration import *
-from librecon.utils import *
+try:
+    from librecon.configuration import *
+    from librecon.utils import *
+except:
+    from configuration import *
+    from utils import *
 
 
 class CherryTree:

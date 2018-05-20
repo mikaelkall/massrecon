@@ -7,6 +7,7 @@
 __author__ = 'kall.micke@gmail.com'
 
 import subprocess
+import requests
 import shlex
 import time
 import os
@@ -14,11 +15,18 @@ import re
 import signal
 import sys
 
-from librecon.configuration import *
-from librecon.cherrytree import *
-from librecon.utils import *
 from halo import Halo
-from librecon.colors import *
+
+try:
+    from librecon.configuration import *
+    from librecon.cherrytree import *
+    from librecon.utils import *
+    from librecon.colors import *
+except:
+    from configuration import *
+    from cherrytree import *
+    from utils import *
+    from colors import *
 
 # Handler to exist cleanly on ctrl+C
 def signal_handler(signal, frame):
@@ -34,7 +42,14 @@ class Dirb:
         self.hostname = hostname
         self.module_disable = False
         self.directory_log = False
-        self.ssl = ssl
+
+        if self.module_disable is True:
+            return
+
+        if ssl is True:
+            self.proto = 'https'
+        else:
+            self.proto = 'http'
 
         self.chr = CherryTree(address=hostname)
 
@@ -83,22 +98,14 @@ class Dirb:
         color = Colors()
         output = ''
 
-        if self.module_disable is True:
-            return
-
         # gobuster spidering
         with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
 
-            if self.ssl is True:
-                proto = 'https'
-            else:
-                proto = 'http'
-
             try:
                 if self.directory_log is True:
-                    output = self.run_command("gobuster -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (proto, self.hostname, self.wordlist, self.dirb_dir))
+                    output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (self.proto, self.hostname, self.wordlist, self.dirb_dir))
                 else:
-                    output = self.run_command("gobuster -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (proto, self.hostname, self.wordlist))
+                    output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (self.proto, self.hostname, self.wordlist))
             except:
                 pass
 
@@ -108,3 +115,47 @@ class Dirb:
 
             self.chr.insert(name='machines', leaf=self.hostname)
             self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
+
+    def robots_scan(self):
+
+        color = Colors()
+        output = ''
+
+        r = requests.get("%s://%s/robots.txt" % (self.proto, self.hostname))
+        if r.status_code == 200:
+
+            utils().puts('success', "%s://%s/robots.txt" % (self.proto, self.hostname))
+
+            if self.directory_log is True:
+                with open("%s/robots.txt" % self.dirb_dir, 'w') as f:
+                    f.writelines(r.text)
+
+            if self.cherrytree_log is True:
+                _leaf_name = 'robots.txt_%s' % time.strftime("%Y%m%d_%H:%M:%S")
+                self.chr.insert(name='machines', leaf=self.hostname)
+                self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=r.text)
+
+            entries = [r for r in r.text.split('\n') if ':' in r and 'user-agent:' not in r.lower()]
+
+            for e in entries:
+                _folder = str(e.split(':')[1]).strip()
+
+                # Gobuster spidering
+                with Halo(text='%s%s\n\n' % (color.blue, color.reset), spinner='dots'):
+
+                    _url = "%s://%s%s" % (self.proto, self.hostname, _folder)
+                    utils().puts('info', "Spider: %s" % _url)
+
+                    try:
+                        if self.directory_log is True:
+                            output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (_url, self.wordlist, self.dirb_dir, _folder.replace('/', '_')))
+                        else:
+                            output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
+                    except:
+                        pass
+
+                    if self.cherrytree_log is True and len(output) > 2:
+                        _leaf_name = 'dirb_%s_%s' % (_folder, time.strftime("%Y%m%d_%H:%M:%S"))
+
+                        self.chr.insert(name='machines', leaf=self.hostname)
+                        self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
