@@ -1,6 +1,7 @@
 # massrecon.py
 
-This is still in develop it will be in develop branch until I have a ready release. 
+Under continuous development but master branch will always be releasable and development
+will happend in develop branch.
 
 ## Summary
 
