@@ -1,2 +1,4 @@
 halo==0.0.12
 configparser==3.5.0
+M2Crypto==0.30.1
+pyOpenSSL==18.0.0
