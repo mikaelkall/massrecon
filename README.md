@@ -98,3 +98,5 @@ Nmap done: 1 IP address (1 host up) scanned in 15.09 seconds
 For view Cherrytree results database file can be found in this location.
 
 ~/.massrecon/massrecon.ctb
+
+![](https://raw.githubusercontent.com/mikaelkall/massrecon/develop/chr.gif)
