@@ -26,7 +26,7 @@ def tag_and_push():
    x = input('Press y to continue or q to quit: ')
    if x == 'y':
       sh('git checkout master')
-      sh('git merge develop')
+      sh('git rebase develop')
       sh('git tag -a %s -m "%s"' % (version, version))
       sh('git push origin master')
       sh('git push --tags')
