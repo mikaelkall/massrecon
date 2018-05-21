@@ -26,13 +26,14 @@ class Librecon:
 
         # Port 443 is open spider target.
         if '443' in np.ports:
-            db = Dirb(hostname=ip, ssl=True)
+            db = Dirb(hostname=ip, ssl_proto=True)
+            db.download_certificate()
             db.robots_scan()
             db.dirb_stage_1()
 
         # Port 80 is open spider target.
         if '80' in np.ports:
-            db = Dirb(hostname=ip, ssl=False)
+            db = Dirb(hostname=ip, ssl_proto=False)
             db.robots_scan()
             db.dirb_stage_1()
 
@@ -50,10 +51,11 @@ class Librecon:
     '''
     def dirb(self, ip = ''):
         # Starts nmap scan
-        db = Dirb(hostname=ip, ssl=False)
+        db = Dirb(hostname=ip, ssl_proto=False)
         db.robots_scan()
         db.dirb_stage_1()
 
-        db = Dirb(hostname=ip, ssl=True)
+        db = Dirb(hostname=ip, ssl_proto=True)
+        db.download_certificate()
         db.robots_scan()
         db.dirb_stage_1()

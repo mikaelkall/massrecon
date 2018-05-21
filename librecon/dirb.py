@@ -14,6 +14,9 @@ import os
 import re
 import signal
 import sys
+import ssl
+import M2Crypto
+import OpenSSL
 
 from halo import Halo
 
@@ -37,7 +40,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 class Dirb:
 
-    def __init__(self, hostname='', ssl=False):
+    def __init__(self, hostname='', ssl_proto=False):
 
         self.hostname = hostname
         self.module_disable = False
@@ -46,7 +49,9 @@ class Dirb:
         if self.module_disable is True:
             return
 
-        if ssl is True:
+        self.ssl_proto = ssl_proto
+
+        if self.ssl_proto is True:
             self.proto = 'https'
         else:
             self.proto = 'http'
@@ -121,7 +126,12 @@ class Dirb:
         color = Colors()
         output = ''
 
-        r = requests.get("%s://%s/robots.txt" % (self.proto, self.hostname))
+        try:
+            r = requests.get("%s://%s/robots.txt" % (self.proto, self.hostname))
+        except:
+            utils().puts('error', "Connection failed: %s://%s" % (self.proto, self.hostname))
+            return False
+
         if r.status_code == 200:
 
             utils().puts('success', "%s://%s/robots.txt" % (self.proto, self.hostname))
@@ -159,3 +169,47 @@ class Dirb:
 
                         self.chr.insert(name='machines', leaf=self.hostname)
                         self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
+
+    def download_certificate(self):
+
+        color = Colors()
+        output = ''
+
+        if self.ssl_proto is False:
+            return
+
+        try:
+            cert = ssl.get_server_certificate((self.hostname, 443))
+            x509 = M2Crypto.X509.load_cert_string(cert)
+            x509.get_subject().as_text()
+
+            # OpenSSL
+            x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
+
+            results = 'TLS Certificate data\n'
+            results += '---------------\n'
+
+            results += str(x509.get_notAfter()) + "\n"
+            results += str((x509.get_notBefore())) + "\n"
+            results += str((x509.get_signature_algorithm())) + "\n"
+
+            for i in x509.get_issuer().get_components():
+                res = ':'.join(map(str, i))
+                results += res + "\n"
+
+            for x in range(0, x509.get_extension_count()):
+                results += str(x509.get_extension(x)) + "\n"
+
+            if self.directory_log is True:
+                with open("%s/%s.tls.txt" % (self.dirb_dir, self.hostname), 'w') as f:
+                    f.writelines(results)
+
+            if self.cherrytree_log is True and len(output) > 2:
+                _leaf_name = 'tls_%s_%s' % (self.hostname, time.strftime("%Y%m%d_%H:%M:%S"))
+
+                self.chr.insert(name='machines', leaf=self.hostname)
+                self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=results)
+        except:
+            return False
+
+
