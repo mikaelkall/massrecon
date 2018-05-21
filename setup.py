@@ -17,11 +17,16 @@ setup(
 
     setup_requires=[
         'halo==0.0.12',
-        'configparser==3.5.0'
+        'configparser==3.5.0',
+        'Paver==1.3.4',
+        'M2Crypto==0.30.1',
+        'pyOpenSSL==18.0.0'
     ],
     install_requires=[
         'halo==0.0.12',
-        'configparser==3.5.0'
+        'configparser==3.5.0',
+        'M2Crypto==0.30.1',
+        'pyOpenSSL==18.0.0'
     ],
     scripts=['massrecon.py'],
     zip_safe=False

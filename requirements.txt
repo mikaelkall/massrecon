@@ -1,4 +1,5 @@
 halo==0.0.12
+Paver==1.3.4
 configparser==3.5.0
 M2Crypto==0.30.1
 pyOpenSSL==18.0.0
