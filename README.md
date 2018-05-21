@@ -1,16 +1,11 @@
 # massrecon.py
 
-Under continuous development but master branch will always be releasable and development
-will happend in develop branch.
+[![Python 3.2|3.6](https://img.shields.io/badge/python-3.2|3.6-green.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPL3-_red.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) [![Twitter](https://img.shields.io/badge/twitter-@massrecon-blue.svg)](https://twitter.com/MickeKall)
 
 ## Summary
 
-This is reconissance tool specific written for OSCP engagements.
-For boot2root, hackthebox.eu or OSCP in general I start mostly with the same reconissance
-procedure and document it in KeepNote or CherryTree. The intention with this tool
-is to automate this procedure by start all reconissance tools and enumeration
-and automaticly import the results to CherryTree so you can focus on exploitation instead
-of look for the weakest link.
+A reconnaissance tool made for the OSCP engagements to automate information gathering and service enumeration whilst creating a directory structure to store  results, findings and exploits used for each host, recommended commands to execute and directory structures for storing loot and flags.
+Also document the information in CherryTree so you can focus on the exploitation instead of reconnaissance.
 
 ## Install
 
