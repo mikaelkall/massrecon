@@ -21,6 +21,10 @@ class Librecon:
 
         # Starts nmap scan
         np = Nmap(hostname=ip)
+
+        print(type(np))
+        os._exit(0)
+
         np.scan_stage_1()
         np.scan_stage_2()
 
