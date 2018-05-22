@@ -23,7 +23,8 @@ setup(
         'pyOpenSSL==18.0.0',
         'nose==1.3.7',
         'rednose==1.3.0',
-        'unittest2==1.1.0'
+        'unittest2==1.1.0',
+        'requests==2.13.0'
     ],
     install_requires=[
         'halo==0.0.12',
@@ -33,7 +34,8 @@ setup(
         'pyOpenSSL==18.0.0',
         'nose==1.3.7',
         'rednose==1.3.0',
-        'unittest2==1.1.0'
+        'unittest2==1.1.0',
+        'requests==2.13.0'
     ],
     scripts=['massrecon.py'],
     zip_safe=False
