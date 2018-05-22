@@ -20,13 +20,20 @@ setup(
         'configparser==3.5.0',
         'Paver==1.3.4',
         'M2Crypto==0.30.1',
-        'pyOpenSSL==18.0.0'
+        'pyOpenSSL==18.0.0',
+        'nose==1.3.7',
+        'rednose==1.3.0',
+        'unittest2==1.1.0'
     ],
     install_requires=[
         'halo==0.0.12',
         'configparser==3.5.0',
+        'Paver==1.3.4',
         'M2Crypto==0.30.1',
-        'pyOpenSSL==18.0.0'
+        'pyOpenSSL==18.0.0',
+        'nose==1.3.7',
+        'rednose==1.3.0',
+        'unittest2==1.1.0'
     ],
     scripts=['massrecon.py'],
     zip_safe=False

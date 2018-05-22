@@ -30,3 +30,8 @@ def tag_and_push():
       sh('git tag -a %s -m "%s"' % (version, version))
       sh('git push origin master')
       sh('git push --tags')
+
+@task
+def unit_tests():
+    ''' Run unit test '''
+    sh('nosetests --rednose --force-color tests/unit/')
