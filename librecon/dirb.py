@@ -103,6 +103,8 @@ class Dirb:
         color = Colors()
         output = ''
 
+        utils().puts('success', "Spider %s://%s" % (self.proto, self.hostname))
+
         # gobuster spidering
         with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
 
@@ -177,6 +179,8 @@ class Dirb:
 
         if self.ssl_proto is False:
             return
+
+        utils().puts('success', "Loot TLS certificate")
 
         try:
             cert = ssl.get_server_certificate((self.hostname, 443))
