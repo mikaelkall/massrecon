@@ -42,6 +42,7 @@ class Configuration:
         self.config.set('massrecon', 'cherrytree_log', 'True')
         self.config.set('massrecon', 'directory_log', 'True')
         self.config.set('massrecon', 'nmap', 'True')
+        self.config.set('massrecon', 'nikto', 'True')
         self.config.set('massrecon', 'dirb_wordlist', '/usr/share/dirbuster/directory-list-lowercase-2.3-medium.txt')
         self.config.write(cfgfile)
 
