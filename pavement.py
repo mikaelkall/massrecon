@@ -12,7 +12,7 @@ def tasks():
 @task
 def tag_and_push():
    ''' Tag commit and push to master '''
-   output = subprocess.getoutput("git ls-remote -q --tags | awk '{print $2}' |egrep -o '[0-9]+.[0-9]+.[0-9]+' |sort -g |head -1")
+   output = subprocess.getoutput("git ls-remote -q --tags | awk '{print $2}' |egrep -o '[0-9]+.[0-9]+.[0-9]+' |sort -g |tail -1")
    if len(output) == 0:
        return
 
