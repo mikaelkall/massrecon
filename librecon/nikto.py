@@ -7,6 +7,7 @@
 __author__ = 'kall.micke@gmail.com'
 
 import subprocess
+import shlex
 import time
 import os
 import re
@@ -75,32 +76,34 @@ class Nikto:
             if os.path.isdir(self.nikto_dir) is False:
                 os.makedirs(self.nikto_dir, exist_ok=True)
 
-    def scan(self):
+    def run_command(self, command):
+        process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+        while True:
+            output = process.stdout.readline()
+            if output == '' and process.poll() is not None:
+                break
+            if output:
+                print(" " + output.strip().decode())
+        rc = process.poll()
+        return rc
 
-        if len(self.ports) == 0:
-            return
+    def scan(self):
 
         color = Colors()
 
         if self.module_disable is True:
             return
 
-        with Halo(text='%sNikto Spider%s' % (color.blue, color.reset), spinner='dots'):
+        utils().puts('success', "Nikto %s://%s" % (self.proto, self.hostname))
+
+        with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("nikto -host %s://%s -output %s/nikto.txt" % (self.proto, self.hostname, self.nikto_dir))
+                    output = self.run_command("nikto -host %s://%s -output %s/nikto.txt" % (self.proto, self.hostname, self.nikto_dir))
                 else:
-                    output = subprocess.getoutput("nikto -host %s://%s" % (self.proto, self.hostname))
+                    output = self.run_command("nikto -host %s://%s" % (self.proto, self.hostname))
             except:
                 pass
-
-            print("\n")
-            print("%s=%s" % (color.red, color.reset) * 90)
-            print("%s Nikto: %s %s" % (color.yellow, self.hostname, color.reset))
-            print("%s=%s" % (color.red, color.reset) * 90)
-            print('%s%s%s' % (color.green, output, color.reset))
-            print("%s-%s" % (color.red, color.reset) * 90)
-            print("\n")
 
         if self.cherrytree_log is True:
 
