@@ -8,6 +8,8 @@ __author__ = 'kall.micke@gmail.com'
 
 from librecon.nmap import *
 from librecon.dirb import *
+from librecon.nikto import *
+from librecon.ftp import *
 
 class Librecon:
 
@@ -21,15 +23,18 @@ class Librecon:
 
         # Starts nmap scan
         np = Nmap(hostname=ip)
-
-        print(type(np))
-        os._exit(0)
-
         np.scan_stage_1()
         np.scan_stage_2()
 
+        if '21' in np.ports:
+            fp = Ftp(hostname=ip)
+            fp.run()
+
         # Port 443 is open spider target.
         if '443' in np.ports:
+            nk = Nikto(hostname=ip, ssl_proto=True)
+            nk.scan()
+
             db = Dirb(hostname=ip, ssl_proto=True)
             db.download_certificate()
             db.robots_scan()
@@ -37,6 +42,9 @@ class Librecon:
 
         # Port 80 is open spider target.
         if '80' in np.ports:
+            nk = Nikto(hostname=ip, ssl_proto=False)
+            nk.scan()
+
             db = Dirb(hostname=ip, ssl_proto=False)
             db.robots_scan()
             db.dirb_stage_1()
@@ -63,3 +71,22 @@ class Librecon:
         db.download_certificate()
         db.robots_scan()
         db.dirb_stage_1()
+    '''
+    Initate Nikto module only
+    '''
+    def nikto(self, ip=''):
+
+        nk = Nikto(hostname=ip, ssl_proto=False)
+        nk.scan()
+
+        nk = Nikto(hostname=ip, ssl_proto=True)
+        nk.scan()
+
+    '''
+    Initate FTP module only
+    '''
+    def ftp(self, ip=''):
+        fp = Ftp(hostname=ip)
+        fp.run()
+
+

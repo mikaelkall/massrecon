@@ -79,9 +79,9 @@ class Nmap:
         with Halo(text='%sNMAP STAGE[1]%s' % (color.blue, color.reset), spinner='dots'):
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("nmap -sT -oA %s/stage1 %s" % (self.nmap_dir, self.hostname))
+                    output = subprocess.getoutput("nmap -sT -P0 -oA %s/stage1 %s" % (self.nmap_dir, self.hostname))
                 else:
-                    output = subprocess.getoutput("nmap -sT %s" % self.hostname)
+                    output = subprocess.getoutput("nmap -sT -P0 %s" % self.hostname)
             except:
                 pass
 
@@ -118,9 +118,9 @@ class Nmap:
         with Halo(text='%sNMAP STAGE[2]%s' % (color.blue, color.reset), spinner='dots'):
             try:
                 if self.directory_log is True:
-                    output = subprocess.getoutput("nmap -sV -vv -sC -script-args=unsafe=1 -A -oA %s/stage2 -p %s  %s" % (self.nmap_dir, ','.join(self.ports), self.hostname))
+                    output = subprocess.getoutput("nmap -sV -P0 -vv -sC -script-args=unsafe=1 -A -oA %s/stage2 -p %s  %s" % (self.nmap_dir, ','.join(self.ports), self.hostname))
                 else:
-                    output = subprocess.getoutput("nmap -sV -vv -sC -script-args=unsafe=1 -A -p %s %s" % (''.join(self.ports), self.hostname))
+                    output = subprocess.getoutput("nmap -sV -P0 -vv -sC -script-args=unsafe=1 -A -p %s %s" % (''.join(self.ports), self.hostname))
             except:
                 pass
 
