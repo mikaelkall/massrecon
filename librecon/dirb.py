@@ -40,11 +40,12 @@ signal.signal(signal.SIGINT, signal_handler)
 
 class Dirb:
 
-    def __init__(self, hostname='', ssl_proto=False):
+    def __init__(self, hostname='', ssl_proto=False, silent=False):
 
         self.hostname = hostname
         self.module_disable = False
         self.directory_log = False
+        self.silent = silent
 
         if self.module_disable is True:
             return
@@ -106,7 +107,17 @@ class Dirb:
         utils().puts('success', "Spider %s://%s" % (self.proto, self.hostname))
 
         # gobuster spidering
-        with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
+        if self.silent is False:
+            with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
+
+                try:
+                    if self.directory_log is True:
+                        output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (self.proto, self.hostname, self.wordlist, self.dirb_dir))
+                    else:
+                        output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (self.proto, self.hostname, self.wordlist))
+                except:
+                    pass
+        else:
 
             try:
                 if self.directory_log is True:
@@ -153,16 +164,32 @@ class Dirb:
                 _folder = str(e.split(':')[1]).strip()
 
                 # Gobuster spidering
-                with Halo(text='%s%s\n\n' % (color.blue, color.reset), spinner='dots'):
+                if self.silent is False:
+
+                    with Halo(text='%s%s\n\n' % (color.blue, color.reset), spinner='dots'):
+
+                        _url = "%s://%s%s" % (self.proto, self.hostname, _folder)
+                        utils().puts('info', "Spider: %s" % _url)
+
+                        try:
+                            if self.directory_log is True:
+                                output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (_url, self.wordlist, self.dirb_dir, _folder.replace('/', '_')))
+                            else:
+                                output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
+                        except:
+                            pass
+                else:
 
                     _url = "%s://%s%s" % (self.proto, self.hostname, _folder)
                     utils().puts('info', "Spider: %s" % _url)
 
                     try:
                         if self.directory_log is True:
-                            output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (_url, self.wordlist, self.dirb_dir, _folder.replace('/', '_')))
+                            output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (
+                            _url, self.wordlist, self.dirb_dir, _folder.replace('/', '_')))
                         else:
-                            output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
+                            output = self.run_command(
+                                "gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
                     except:
                         pass
 
