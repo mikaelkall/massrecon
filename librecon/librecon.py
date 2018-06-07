@@ -6,6 +6,7 @@
 """
 __author__ = 'kall.micke@gmail.com'
 
+from multiprocessing import Process
 from librecon.nmap import *
 from librecon.dirb import *
 from librecon.nikto import *
@@ -48,6 +49,51 @@ class Librecon:
             db = Dirb(hostname=ip, ssl_proto=False)
             db.robots_scan()
             db.dirb_stage_1()
+
+    '''
+    Initate all recon modules
+    '''
+    def massrecon(self, ip=''):
+
+        # Starts nmap scan
+        np = Nmap(hostname=ip)
+        np.scan_stage_1()
+        np.scan_stage_2()
+
+        if '21' in np.ports:
+            fp = Ftp(hostname=ip)
+            p = Process(target=fp.run())
+            p.start()
+
+        # Port 443 is open spider target.
+        if '443' in np.ports:
+            nk = Nikto(hostname=ip, ssl_proto=True)
+            p = Process(target=nk.scan())
+            p.start()
+
+            db = Dirb(hostname=ip, ssl_proto=True)
+            p = Process(target=db.download_certificate())
+            p.start()
+
+            p = Process(target=db.robots_scan())
+            p.start()
+
+            p = Process(target=db.dirb_stage_1())
+            p.start()
+
+        # Port 80 is open spider target.
+        if '80' in np.ports:
+            nk = Nikto(hostname=ip, ssl_proto=False)
+            p = Process(target=nk.scan())
+            p.start()
+
+            db = Dirb(hostname=ip, ssl_proto=False)
+
+            p = Process(target=db.robots_scan())
+            p.start()
+
+            p = Process(target=db.dirb_stage_1())
+            p.start()
 
     '''
     Initiate nmap module only
