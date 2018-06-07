@@ -36,11 +36,12 @@ Usage: massrecon [OPTIONS]
 
 General Options
 
-   recon <ip>\t\tStart recon target
-   nmap  <ip>\t\tRun nmap module only
-   dirb  <ip>\t\tRun dirb module only
-   nikto <ip>\t\tRun nikto module only
-   ftp   <ip>\t\tRun ftp module only
+   massrecon  <ip>\t\tStart all recon modules async
+       recon  <ip>\t\tStart recon target
+        nmap  <ip>\t\tRun nmap module only
+        dirb  <ip>\t\tRun dirb module only
+       nikto  <ip>\t\tRun nikto module only
+         ftp  <ip>\t\tRun ftp module only
 """)
 
     sys.exit(0)
@@ -61,20 +62,24 @@ if __name__ == '__main__':
         Librecon().run(ip=ip)
         sys.exit(0)
 
-    if opt.lower() == "nmap":
+    elif opt.lower() == "nmap":
         Librecon().nmap(ip=ip)
         sys.exit(0)
 
-    if opt.lower() == "dirb":
+    elif opt.lower() == "dirb":
         Librecon().dirb(ip=ip)
         sys.exit(0)
 
-    if opt.lower() == "nikto":
+    elif opt.lower() == "nikto":
         Librecon().nikto(ip=ip)
         sys.exit(0)
 
-    if opt.lower() == "ftp":
+    elif opt.lower() == "ftp":
         Librecon().ftp(ip=ip)
+        sys.exit(0)
+
+    elif opt.lower() == "massrecon":
+        Librecon().massrecon(ip=ip)
         sys.exit(0)
     else:
         __usage()
