@@ -114,7 +114,7 @@ class Librecon:
         db.dirb_stage_1()
 
         db = Dirb(hostname=ip, ssl_proto=True)
-        db.download_certificate()
+        #db.download_certificate()
         db.robots_scan()
         db.dirb_stage_1()
     '''

@@ -134,6 +134,9 @@ class Dirb:
             self.chr.insert(name='machines', leaf=self.hostname)
             self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
 
+    def special_match(self,strg, search=re.compile(r'[^a-zA-Z0-9_/]').search):
+        return not bool(search(strg))
+
     def robots_scan(self):
 
         color = Colors()
@@ -162,6 +165,9 @@ class Dirb:
 
             for e in entries:
                 _folder = str(e.split(':')[1]).strip()
+
+                if self.special_match(_folder) is False:
+                    continue
 
                 # Gobuster spidering
                 if self.silent is False:
