@@ -38,10 +38,14 @@ General Options
 
    massrecon  <ip>\t\tStart all recon modules async
        recon  <ip>\t\tStart recon target
+
+Plugins
+
         nmap  <ip>\t\tRun nmap module only
         dirb  <ip>\t\tRun dirb module only
        nikto  <ip>\t\tRun nikto module only
          ftp  <ip>\t\tRun ftp module only
+      sslyze  <ip>\t\tRun sslyze module only
 """)
 
     sys.exit(0)
@@ -76,6 +80,10 @@ if __name__ == '__main__':
 
     elif opt.lower() == "ftp":
         Librecon().ftp(ip=ip)
+        sys.exit(0)
+
+    elif opt.lower() == "ftp":
+        Librecon().sslyze(ip=ip)
         sys.exit(0)
 
     elif opt.lower() == "massrecon":
