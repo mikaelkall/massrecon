@@ -11,6 +11,7 @@ from librecon.nmap import *
 from librecon.dirb import *
 from librecon.nikto import *
 from librecon.ftp import *
+from librecon.sslyze import *
 
 class Librecon:
 
@@ -35,6 +36,9 @@ class Librecon:
         if '443' in np.ports:
             nk = Nikto(hostname=ip, ssl_proto=True)
             nk.scan()
+
+            ss = Sslyze(hostname=ip)
+            ss.scan()
 
             db = Dirb(hostname=ip, ssl_proto=True)
             db.download_certificate()
@@ -62,23 +66,27 @@ class Librecon:
 
         if '21' in np.ports:
             fp = Ftp(hostname=ip)
-            p = Process(target=fp.run())
+            p = Process(target=fp.run)
             p.start()
 
         # Port 443 is open spider target.
         if '443' in np.ports:
             nk = Nikto(hostname=ip, ssl_proto=True)
-            p = Process(target=nk.scan())
+            p = Process(target=nk.scan)
+            p.start()
+
+            ss = Sslyze(hostname=ip)
+            p = Process(target=ss.scan)
             p.start()
 
             db = Dirb(hostname=ip, ssl_proto=True)
-            p = Process(target=db.download_certificate())
+            p = Process(target=db.download_certificate)
             p.start()
 
-            p = Process(target=db.robots_scan())
+            p = Process(target=db.robots_scan)
             p.start()
 
-            p = Process(target=db.dirb_stage_1())
+            p = Process(target=db.dirb_stage_1)
             p.start()
 
         # Port 80 is open spider target.
@@ -89,10 +97,10 @@ class Librecon:
 
             db = Dirb(hostname=ip, ssl_proto=False)
 
-            p = Process(target=db.robots_scan())
+            p = Process(target=db.robots_scan)
             p.start()
 
-            p = Process(target=db.dirb_stage_1())
+            p = Process(target=db.dirb_stage_1)
             p.start()
 
     '''
@@ -135,4 +143,9 @@ class Librecon:
         fp = Ftp(hostname=ip)
         fp.run()
 
-
+    '''
+    Initate sslyze module only
+    '''
+    def sslyze(self, ip=''):
+        ss = Sslyze(hostname=ip)
+        ss.run()

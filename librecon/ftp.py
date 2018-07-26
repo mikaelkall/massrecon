@@ -138,6 +138,9 @@ class Ftp:
         os.chdir(original_directory)  # reset working directory to what it was before function exec
 
     def run(self):
-        utils().puts('info', 'Tries anonymous FTP')
-        f = ftplib.FTP(self.hostname, 'anonymous', 'anonymous')
-        self.download_ftp_tree(f, './', self.ftp_dir)
+        try:
+            utils().puts('info', 'Tries anonymous FTP')
+            f = ftplib.FTP(self.hostname, 'anonymous', 'anonymous')
+            self.download_ftp_tree(f, './', self.ftp_dir)
+        except:
+            pass
