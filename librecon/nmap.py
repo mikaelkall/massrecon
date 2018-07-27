@@ -139,6 +139,5 @@ class Nmap:
             self.chr.insert(name='machines', leaf=self.hostname)
             self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
 
-
 if __name__ == '__main__':
     pass

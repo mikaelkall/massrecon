@@ -46,6 +46,7 @@ Plugins
        nikto  <ip>\t\tRun nikto module only
          ftp  <ip>\t\tRun ftp module only
       sslyze  <ip>\t\tRun sslyze module only
+fullportscan  <ip>\t\tRun quick portscan on all ports.
 """)
 
     sys.exit(0)
@@ -84,6 +85,9 @@ if __name__ == '__main__':
 
     elif opt.lower() == "ftp":
         Librecon().sslyze(ip=ip)
+        sys.exit(0)
+    elif opt.lower() == "fullportscan":
+        Librecon().fullportscan(ip=ip)
         sys.exit(0)
 
     elif opt.lower() == "massrecon":

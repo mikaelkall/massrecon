@@ -12,6 +12,7 @@ from librecon.dirb import *
 from librecon.nikto import *
 from librecon.ftp import *
 from librecon.sslyze import *
+from librecon.fullportscan import *
 
 class Librecon:
 
@@ -27,6 +28,10 @@ class Librecon:
         np = Nmap(hostname=ip)
         np.scan_stage_1()
         np.scan_stage_2()
+
+        # qucik full portscan
+        sc = Fullportscan(hostname=ip)
+        sc.scan()
 
         if '21' in np.ports:
             fp = Ftp(hostname=ip)
@@ -75,11 +80,11 @@ class Librecon:
             p = Process(target=nk.scan)
             p.start()
 
-            ss = Sslyze(hostname=ip)
+            ss = Sslyze(hostname=ip, silent=True)
             p = Process(target=ss.scan)
             p.start()
 
-            db = Dirb(hostname=ip, ssl_proto=True)
+            db = Dirb(hostname=ip, ssl_proto=True, silent=True)
             p = Process(target=db.download_certificate)
             p.start()
 
@@ -95,7 +100,7 @@ class Librecon:
             p = Process(target=nk.scan())
             p.start()
 
-            db = Dirb(hostname=ip, ssl_proto=False)
+            db = Dirb(hostname=ip, ssl_proto=False, silent=True)
 
             p = Process(target=db.robots_scan)
             p.start()
@@ -149,3 +154,10 @@ class Librecon:
     def sslyze(self, ip=''):
         ss = Sslyze(hostname=ip)
         ss.run()
+
+    '''
+    Initate fullportscan module only
+    '''
+    def fullportscan(self, ip=''):
+        sc = Fullportscan(hostname=ip)
+        sc.scan()
