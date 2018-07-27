@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-   sslyze
-   Massrecon module for dump certificate information.
+   fullportscan module
 """
 __author__ = 'kall.micke@gmail.com'
 
@@ -27,7 +26,7 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-class Sslyze:
+class Fullportscan:
 
     def __init__(self, hostname='', silent=False):
 
@@ -43,13 +42,13 @@ class Sslyze:
 
         self.config_dir = self.cfg.config_dir
 
-        if self.cfg.config.get('massrecon', 'sslyze') != 'True':
-            utils.puts('info', 'sslyze module is disabled')
+        if self.cfg.config.get('massrecon', 'fullportscan') != 'True':
+            utils.puts('info', 'fullportscan module is disabled')
             self.module_disable = True
             return
 
-        if os.path.isfile('/usr/bin/sslyze') is False:
-            utils.puts('info', 'sslyze is not installed')
+        if os.path.isfile('/usr/bin/fullportscan') is False:
+            utils.puts('info', 'fullportscan is not installed')
             self.module_disable = True
             return
 
@@ -63,12 +62,12 @@ class Sslyze:
             utils.puts('warning', 'No host to scan')
             return
 
-        self.scanfolder = '%s/results/sslyze/%s' % (self.config_dir, self.hostname)
+        self.scanfolder = '%s/results/fullportscan/%s' % (self.config_dir, self.hostname)
 
         if self.directory_log is True:
-            self.sslyze_dir = '%s/results/%s/sslyze' % (self.config_dir, self.hostname)
-            if os.path.isdir(self.sslyze_dir) is False:
-                os.makedirs(self.sslyze_dir, exist_ok=True)
+            self.fullportscan_dir = '%s/results/%s/fullportscan' % (self.config_dir, self.hostname)
+            if os.path.isdir(self.fullportscan_dir) is False:
+                os.makedirs(self.fullportscan_dir, exist_ok=True)
 
     def run_command(self, command):
         process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
@@ -89,29 +88,32 @@ class Sslyze:
             return
 
         if self.silent is False:
-            utils().puts('success', "Sslyze %s://%s" % (self.proto, self.hostname))
+            utils().puts('success', "fullportscan %s" % self.hostname)
 
             with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
                 try:
                     if self.directory_log is True:
-                        output = self.run_command("sslyze --regular --certinfo %s --json_out=%s/sslyze.json" % (self.hostname, self.sslyze_dir))
+                        output = self.run_command("fullportscan -t %s" % self.hostname)
+                        with open(self.fullportscan_dir + '/fullportscan.txt', 'w') as logname:
+                            logname.write(output)
                     else:
-                        output = self.run_command("sslyze --regular --certinfo %s" % self.hostname)
+                        output = self.run_command("fullportscan -t %s" % self.hostname)
                 except:
                     pass
         else:
-
             try:
                 if self.directory_log is True:
-                    output = self.run_command("sslyze --regular --certinfo %s --json_out=%s/sslyze.json" % (self.hostname, self.sslyze_dir))
+                    output = self.run_command("fullportscan -t %s" % self.hostname)
+                    with open(self.fullportscan_dir + '/fullportscan.txt', 'w') as logname:
+                        logname.write(output)
                 else:
-                    output = self.run_command("sslyze --regular --certinfo %s" % self.hostname)
+                    output = self.run_command("fullportscan -t %s" % self.hostname)
             except:
                 pass
 
         if self.cherrytree_log is True:
 
-            _leaf_name = 'sslyze_%s' % time.strftime("%Y%m%d_%H:%M:%S")
+            _leaf_name = 'fullportscan_%s' % time.strftime("%Y%m%d_%H:%M:%S")
 
             self.chr.insert(name='machines', leaf=self.hostname)
             self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
