@@ -29,9 +29,10 @@ class Librecon:
         np.scan_stage_1()
         np.scan_stage_2()
 
-        # qucik full portscan
+        # quick portscan async
         sc = Fullportscan(hostname=ip)
-        sc.scan()
+        p = Process(target=sc.scan)
+        p.start()
 
         if '21' in np.ports:
             fp = Ftp(hostname=ip)
