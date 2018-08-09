@@ -89,15 +89,18 @@ class Dirb:
         self.wordlist = self.cfg.config.get('massrecon', 'dirb_wordlist')
 
     def run_command(self, command):
-        process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
-        while True:
-            output = process.stdout.readline()
-            if output == '' and process.poll() is not None:
-                break
-            if output:
-                print(" " + output.strip().decode())
-        rc = process.poll()
-        return rc
+
+        with open("%s/output.txt" % self.dirb_dir, "a") as logfile:
+            process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+            while True:
+                output = process.stdout.readline()
+                if output == '' and process.poll() is not None:
+                    break
+                if output:
+                    print(" " + output.strip().decode())
+                    logfile.write(" " + output.strip().decode())
+            rc = process.poll()
+            return rc
 
     def dirb_stage_1(self):
 
