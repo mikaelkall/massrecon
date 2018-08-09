@@ -36,17 +36,17 @@ Usage: massrecon [OPTIONS]
 
 General Options
 
-   massrecon  <ip>\t\tStart all recon modules async
-       recon  <ip>\t\tStart recon target
+   massrecon  <ip>\tStart all recon modules async
+       recon  <ip>\tStart recon target
 
-Plugins
+   [Plugins]
 
-        nmap  <ip>\t\tRun nmap module only
-        dirb  <ip>\t\tRun dirb module only
-       nikto  <ip>\t\tRun nikto module only
-         ftp  <ip>\t\tRun ftp module only
-      sslyze  <ip>\t\tRun sslyze module only
-fullportscan  <ip>\t\tRun quick portscan on all ports.
+        nmap  <ip>\tRun nmap module only
+        dirb  <ip>\tRun dirb module only
+       nikto  <ip>\tRun nikto module only
+         ftp  <ip>\tRun ftp module only
+      sslyze  <ip>\tRun sslyze module only
+fullportscan  <ip>\tRun quick portscan on all ports.
 """)
 
     sys.exit(0)

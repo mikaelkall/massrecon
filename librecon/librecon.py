@@ -13,6 +13,7 @@ from librecon.nikto import *
 from librecon.ftp import *
 from librecon.sslyze import *
 from librecon.fullportscan import *
+import os
 
 class Librecon:
 
@@ -29,9 +30,10 @@ class Librecon:
         np.scan_stage_1()
         np.scan_stage_2()
 
-        # qucik full portscan
-        sc = Fullportscan(hostname=ip)
-        sc.scan()
+        # Qucik full portscan
+        sc = Fullportscan(hostname=ip, silent=True)
+        p = Process(target=sc.scan)
+        p.start()
 
         if '21' in np.ports:
             fp = Ftp(hostname=ip)
@@ -63,6 +65,9 @@ class Librecon:
     Initate all recon modules
     '''
     def massrecon(self, ip=''):
+
+        print('Not implemented.')
+        os._exit(0)
 
         # Starts nmap scan
         np = Nmap(hostname=ip)
@@ -159,5 +164,5 @@ class Librecon:
     Initate fullportscan module only
     '''
     def fullportscan(self, ip=''):
-        sc = Fullportscan(hostname=ip)
+        sc = Fullportscan(hostname=ip, silent=False)
         sc.scan()
