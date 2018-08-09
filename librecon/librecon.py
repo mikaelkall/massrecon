@@ -30,8 +30,8 @@ class Librecon:
         np.scan_stage_1()
         np.scan_stage_2()
 
-        # Qucik full portscan
-        sc = Fullportscan(hostname=ip, silent=True)
+        # quick portscan async
+        sc = Fullportscan(hostname=ip, silent=False)
         p = Process(target=sc.scan)
         p.start()
 

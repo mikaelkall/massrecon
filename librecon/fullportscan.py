@@ -76,6 +76,7 @@ class Fullportscan:
             if output == '' and process.poll() is not None:
                 break
             if output:
+                pass
                 print(" " + output.strip().decode())
         rc = process.poll()
         return rc
