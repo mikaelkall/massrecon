@@ -12,7 +12,7 @@ Also document the information in CherryTree so you can focus on the exploitation
 Install package and you will have /usr/bin/massrecon.py ready for usage.
 
 ```sh
-sudo python setup.py install
+sudo python3 setup.py install
 ```
 
 ## Prerequisites
