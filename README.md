@@ -15,6 +15,9 @@ Install package and you will have /usr/bin/massrecon.py ready for usage.
 sudo python3 setup.py install
 ```
 
+Note if you experience errors related to M2Crypto it can be solved by first install the SWIG package with your linux distributions package manager before you execute 'python3 setup.py install'. 
+
+
 ## Prerequisites
 
 For development you need to install these dependencies. Do this or use virtualenv
