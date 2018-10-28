@@ -64,8 +64,8 @@ class Dirb:
 
         self.config_dir = self.cfg.config_dir
 
-        if os.path.isfile('/usr/bin/dirb') is False:
-            utils.puts('info', 'Dirb is not installed')
+        if os.path.isfile('/usr/bin/gobuster') is False:
+            utils.puts('info', 'Gobuster is not installed')
             self.module_disable = True
             return
 

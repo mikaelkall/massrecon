@@ -119,6 +119,18 @@ class Ftp:
             else:
                 self._download_ftp_file(ftp_handle, item, item, overwrite)
 
+    def _run_wget_mirror(self):
+        """
+        Fallback to wget ftp mirror command.
+        :return:
+        """
+
+        utils().puts('info', 'wget mirror FTP')
+        original_directory = os.getcwd()
+        os.chdir(self.ftp_dir)
+        os.system("wget -nH -m --no-passive --no-parent --password 'massrecon@gmail.com' ftp://anonymous@%s/" % self.hostname)
+        os.chdir(original_directory)
+
     def download_ftp_tree(self, ftp_handle, path, destination, overwrite=False, guess_by_extension=True):
         """
         Downloads an entire directory tree from an ftp server to the local destination
@@ -143,4 +155,4 @@ class Ftp:
             f = ftplib.FTP(self.hostname, 'anonymous', 'anonymous')
             self.download_ftp_tree(f, './', self.ftp_dir)
         except:
-            pass
+            self._run_wget_mirror()
