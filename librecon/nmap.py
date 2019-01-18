@@ -99,7 +99,7 @@ class Nmap:
 
         if self.cherrytree_log is True:
 
-            _leaf_name = 'nmap_stage1_%s' % time.strftime("%Y%m%d_%H:%M:%S")
+            _leaf_name = 'nmap_stage1[%s]' % time.strftime("%Y%m%d_%H:%M:%S")
 
             self.chr.insert(name='machines', leaf=self.hostname)
             self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
@@ -134,7 +134,42 @@ class Nmap:
 
         if self.cherrytree_log is True:
 
-            _leaf_name = 'nmap_stage2_%s' % time.strftime("%Y%m%d_%H:%M:%S")
+            _leaf_name = 'nmap_stage2[%s]' % time.strftime("%Y%m%d_%H:%M:%S")
+
+            self.chr.insert(name='machines', leaf=self.hostname)
+            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
+
+    def scan_stage_3(self):
+
+        if len(self.ports) == 0:
+            return
+
+        color = Colors()
+
+        if self.module_disable is True:
+            return
+
+        # Nmap stage1
+        with Halo(text='%sNMAP STAGE[3]%s' % (color.blue, color.reset), spinner='dots'):
+            try:
+                if self.directory_log is True:
+                    output = subprocess.getoutput("nmap --script=vuln -oA %s/stage3 -p %s  %s" % (self.nmap_dir, ','.join(self.ports), self.hostname))
+                else:
+                    output = subprocess.getoutput("nmap --script=vuln -p %s %s" % (''.join(self.ports), self.hostname))
+            except:
+                pass
+
+            print("\n")
+            print("%s=%s" % (color.red, color.reset) * 90)
+            print("%s NMAP_STAGE_3: %s %s" % (color.yellow, self.hostname, color.reset))
+            print("%s=%s" % (color.red, color.reset) * 90)
+            print('%s%s%s' % (color.green, output, color.reset))
+            print("%s-%s" % (color.red, color.reset) * 90)
+            print("\n")
+
+        if self.cherrytree_log is True:
+
+            _leaf_name = 'nmap_stage3[%s]' % time.strftime("%Y%m%d_%H:%M:%S")
 
             self.chr.insert(name='machines', leaf=self.hostname)
             self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)

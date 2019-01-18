@@ -29,9 +29,10 @@ class Librecon:
         np = Nmap(hostname=ip)
         np.scan_stage_1()
         np.scan_stage_2()
+        np.scan_stage_3()
 
         # quick portscan async
-        sc = Fullportscan(hostname=ip, silent=False)
+        sc = Fullportscan(hostname=ip, silent=True)
         p = Process(target=sc.scan)
         p.start()
 
@@ -73,6 +74,7 @@ class Librecon:
         np = Nmap(hostname=ip)
         np.scan_stage_1()
         np.scan_stage_2()
+        np.scan_stage_3()
 
         if '21' in np.ports:
             fp = Ftp(hostname=ip)
@@ -158,11 +160,11 @@ class Librecon:
     '''
     def sslyze(self, ip=''):
         ss = Sslyze(hostname=ip)
-        ss.run()
+        ss.scan()
 
     '''
     Initate fullportscan module only
     '''
     def fullportscan(self, ip=''):
-        sc = Fullportscan(hostname=ip, silent=False)
+        sc = Fullportscan(hostname=ip, silent=True)
         sc.scan()

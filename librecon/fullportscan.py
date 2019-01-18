@@ -47,7 +47,7 @@ class Fullportscan:
             self.module_disable = True
             return
 
-        if os.path.isfile('/usr/bin/fullportscan') is False:
+        if os.path.isfile('/usr/local/bin/fullportscan') is False:
             utils.puts('info', 'fullportscan is not installed')
             self.module_disable = True
             return

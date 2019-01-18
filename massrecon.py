@@ -90,6 +90,10 @@ if __name__ == '__main__':
         Librecon().fullportscan(ip=ip)
         sys.exit(0)
 
+    elif opt.lower() == "sslyze":
+        Librecon().sslyze(ip=ip)
+        sys.exit(0)
+
     elif opt.lower() == "massrecon":
         Librecon().massrecon(ip=ip)
         sys.exit(0)

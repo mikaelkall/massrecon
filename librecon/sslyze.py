@@ -89,7 +89,7 @@ class Sslyze:
             return
 
         if self.silent is False:
-            utils().puts('success', "Sslyze %s://%s" % (self.proto, self.hostname))
+            utils().puts('success', "Sslyze https://%s" % self.hostname)
 
             with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
                 try:
