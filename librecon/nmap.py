@@ -98,11 +98,8 @@ class Nmap:
         print("%s-%s" % (color.red, color.reset) * 90)
 
         if self.cherrytree_log is True:
+            self.chr.append_data('TCP', output)
 
-            _leaf_name = 'nmap_stage1[%s]' % time.strftime("%Y%m%d_%H:%M:%S")
-
-            self.chr.insert(name='machines', leaf=self.hostname)
-            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
 
     def scan_stage_2(self):
 
@@ -133,11 +130,8 @@ class Nmap:
             print("\n")
 
         if self.cherrytree_log is True:
+            self.chr.append_data('TCP', output)
 
-            _leaf_name = 'nmap_stage2[%s]' % time.strftime("%Y%m%d_%H:%M:%S")
-
-            self.chr.insert(name='machines', leaf=self.hostname)
-            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
 
     def scan_stage_3(self):
 
@@ -168,11 +162,7 @@ class Nmap:
             print("\n")
 
         if self.cherrytree_log is True:
-
-            _leaf_name = 'nmap_stage3[%s]' % time.strftime("%Y%m%d_%H:%M:%S")
-
-            self.chr.insert(name='machines', leaf=self.hostname)
-            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
+            self.chr.append_data('TCP', output)
 
 if __name__ == '__main__':
     pass
