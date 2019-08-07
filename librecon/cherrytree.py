@@ -94,42 +94,28 @@ class CherryTree:
 		</node>
 		<node custom_icon_id="22" foreground="" is_bold="False" name="Exploitation" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474629.1" unique_id="22">
 			<rich_text weight="heavy">
-				Service Exploited:  
+Service Exploited:  
 Vulnerability Type:
 Exploit POC:
-			</rich_text>
-			<rich_text>
-				
-
-			</rich_text>
-			<rich_text weight="heavy">
-				Description
-			</rich_text>
-			<rich_text>
-				: 
+</rich_text>
+<rich_text>
 
 
-
-
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Discovery of Vulnerability
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+Description
+</rich_text>
+<rich_text>
 
 
 
 
 
-
-
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Exploit Code Used
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Discovery of Vulnerability
+</rich_text>
+<rich_text>
 
 
 
@@ -138,12 +124,26 @@ Exploit POC:
 
 
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Proof\Local.txt File
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Exploit Code Used
+</rich_text>
+<rich_text>
+
+
+
+
+
+
+
+
+
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Proof\Local.txt File
+</rich_text>
+<rich_text>
+
 
    ☐ Screenshot with ifconfig\ipconfig
    ☐ Submit too OSCP Exam Panel
@@ -311,40 +311,25 @@ Exploit POC:
 		</node>
 		<node custom_icon_id="10" foreground="" is_bold="False" name="Priv Escalation" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474606.33" unique_id="12">
 			<rich_text weight="heavy">
-				Service Exploited:  
+Service Exploited:  
 Vulnerability Type:
 Exploit POC:
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text>
 
-			</rich_text>
-			<rich_text weight="heavy">
-				Description
-			</rich_text>
-			<rich_text>
-				: 
-
-
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Discovery of Vulnerability
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+Description
+</rich_text>
+<rich_text>
 
 
 
-
-
-
-
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Exploit Code Used
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Discovery of Vulnerability
+</rich_text>
+<rich_text>
 
 
 
@@ -353,18 +338,30 @@ Exploit POC:
 
 
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Proof\Local.txt File
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Exploit Code Used
+</rich_text>
+<rich_text>
+
+
+
+
+
+
+
+
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Proof\Local.txt File
+</rich_text>
+<rich_text>
 
    ☐ Screenshot with ifconfig\ipconfig
    ☐ Submit too OSCP Exam Panel
 
 
-			</rich_text>
+</rich_text>
 		</node>
 		<node custom_icon_id="43" foreground="" is_bold="False" name="Goodies" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1492949508.15" unique_id="3">
 			<rich_text>
@@ -725,7 +722,7 @@ Exploit POC:
                                 pass
 
                             if '</rich_text>' in row:
-                                self.database_data += '\n%s' % message + "\n</rich_text>\n"
+                                self.database_data += '%s' % message + "\n</rich_text>\n"
                                 append_found = False
                                 continue
 
