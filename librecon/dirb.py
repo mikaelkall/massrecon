@@ -15,7 +15,6 @@ import re
 import signal
 import sys
 import ssl
-#import M2Crypto
 import OpenSSL
 
 from halo import Halo
