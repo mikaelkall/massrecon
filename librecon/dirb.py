@@ -98,11 +98,18 @@ class Dirb:
                     break
                 if output:
                     print(" " + output.strip().decode())
-                    logfile.write(" " + output.strip().decode())
+                    logfile.write(" " + output.strip().decode() + '\n')
+
+                    if self.cherrytree_log is True:
+                        self.chr.append_data('GoBuster', output.strip().decode())
+
             rc = process.poll()
             return rc
 
     def dirb_stage_1(self):
+
+        if self.module_disable is True:
+            return
 
         color = Colors()
         output = ''
@@ -130,17 +137,14 @@ class Dirb:
             except:
                 pass
 
-        if self.cherrytree_log is True and len(output) > 2:
-
-            _leaf_name = 'dirb_stage_%s' % time.strftime("%Y%m%d_%H:%M:%S")
-
-            self.chr.insert(name='machines', leaf=self.hostname)
-            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
-
     def special_match(self,strg, search=re.compile(r'[^a-zA-Z0-9_/]').search):
         return not bool(search(strg))
 
+
     def robots_scan(self):
+
+        if self.module_disable is True:
+            return
 
         color = Colors()
         output = ''
@@ -202,13 +206,10 @@ class Dirb:
                     except:
                         pass
 
-                    if self.cherrytree_log is True and len(output) > 2:
-                        _leaf_name = 'dirb_%s_%s' % (_folder, time.strftime("%Y%m%d_%H:%M:%S"))
-
-                        self.chr.insert(name='machines', leaf=self.hostname)
-                        self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
-
     def download_certificate(self):
+
+        if self.module_disable is True:
+            return
 
         color = Colors()
         output = ''
@@ -244,11 +245,6 @@ class Dirb:
                 with open("%s/%s.tls.txt" % (self.dirb_dir, self.hostname), 'w') as f:
                     f.writelines(results)
 
-            if self.cherrytree_log is True and len(output) > 2:
-                _leaf_name = 'tls_%s_%s' % (self.hostname, time.strftime("%Y%m%d_%H:%M:%S"))
-
-                self.chr.insert(name='machines', leaf=self.hostname)
-                self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=results)
         except:
             return False
 
