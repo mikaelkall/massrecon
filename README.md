@@ -15,9 +15,6 @@ Install package and you will have /usr/bin/massrecon.py ready for usage.
 sudo python3 setup.py install
 ```
 
-Note if you experience errors related to M2Crypto it can be solved by first install the SWIG package with your linux distributions package manager before you execute 'python3 setup.py install'. 
-
-
 ## Prerequisites
 
 For development you need to install these dependencies. Do this or use virtualenv
@@ -47,21 +44,31 @@ Cache entry deserialization failed, entry ignored
 ## Usage
 
 ```sh
+./massrecon.py
+
 ███╗   ███╗ █████╗ ███████╗███████╗██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
 ████╗ ████║██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
 ██╔████╔██║███████║███████╗███████╗██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║
 ██║╚██╔╝██║██╔══██║╚════██║╚════██║██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
 ██║ ╚═╝ ██║██║  ██║███████║███████║██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
 ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
-[nighter@nighter.se] [Scans and updates CherryTree]
+[Scans and updates CherryTree]
 
 Usage: massrecon [OPTIONS]
 
 General Options
 
-   recon <ip>		Start recon target
-   nmap  <ip>		Run nmap module only
-   dirb  <ip>		Run dirb module only
+       recon  <ip>      Start recon target
+
+   [Plugins]
+
+        nmap  <ip>      Run nmap module only
+        dirb  <ip>      Run dirb module only
+       nikto  <ip>      Run nikto module only
+         ftp  <ip>      Run ftp module only
+      sslyze  <ip>      Run sslyze module only
+   quickscan  <ip>      Run quick portscan on all ports.
+
  ```
 
 ## Start scanning

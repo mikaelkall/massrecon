@@ -78,12 +78,21 @@ class Nikto:
 
     def run_command(self, command):
         process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+        i = 0
         while True:
+            i += 1
             output = process.stdout.readline()
             if output == '' and process.poll() is not None:
                 break
             if output:
                 print(" " + output.strip().decode())
+
+                if self.cherrytree_log is True:
+                    self.chr.append_data('Nikto', output.strip().decode())
+
+            if i > 900000:
+                break
+
         rc = process.poll()
         return rc
 
@@ -105,12 +114,6 @@ class Nikto:
             except:
                 pass
 
-        if self.cherrytree_log is True:
-
-            _leaf_name = 'nikto_%s' % time.strftime("%Y%m%d_%H:%M:%S")
-
-            self.chr.insert(name='machines', leaf=self.hostname)
-            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
 
 if __name__ == '__main__':
     pass
