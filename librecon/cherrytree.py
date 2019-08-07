@@ -166,61 +166,58 @@ Proof\Local.txt File
 				</rich_text>
 			</node>
 			<node custom_icon_id="18" foreground="" is_bold="False" name="Host Information" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474204.83" unique_id="15">
-				<rich_text underline="single" weight="heavy">
-					Operating System
-				</rich_text>
-				<rich_text>
-					
+<rich_text underline="single" weight="heavy">
+Operating System
+</rich_text>
+<rich_text>
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					Architecture
-				</rich_text>
-				<rich_text>
-					
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Architecture
+</rich_text>
+<rich_text>
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					Domain
-				</rich_text>
-				<rich_text>
-					
+
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Domain
+</rich_text>
+<rich_text>
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					Installed Updates
-				</rich_text>
-				<rich_text>
-					
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Installed Updates
+</rich_text>
+<rich_text>
 
 
-				</rich_text>
+</rich_text>
 			</node>
 			<node custom_icon_id="18" foreground="" is_bold="False" name="File System" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474208.8" unique_id="14">
-				<rich_text underline="single" weight="heavy">
-					Writeable Files\Directories
-				</rich_text>
-				<rich_text>
-					
+<rich_text underline="single" weight="heavy">
+Writeable Files\Directories
+</rich_text>
+<rich_text>
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					Directory List
-				</rich_text>
-				<rich_text>
-					
+
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Directory List
+</rich_text>
+<rich_text>
+
 
 
 
@@ -229,88 +226,85 @@ Proof\Local.txt File
 				</rich_text>
 			</node>
 			<node custom_icon_id="18" foreground="" is_bold="False" name="Running Processes" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1495714268.27" unique_id="8">
-				<rich_text underline="single" weight="heavy">
-					Process List
-				</rich_text>
+<rich_text underline="single" weight="heavy">
+Process List
+</rich_text>
 			</node>
 			<node custom_icon_id="18" foreground="" is_bold="False" name="Installed Applications" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1495714509.19" unique_id="10">
-				<rich_text underline="single" weight="heavy">
-					Installed Applications
-				</rich_text>
+<rich_text underline="single" weight="heavy">
+Installed Applications
+</rich_text>
 			</node>
 			<node custom_icon_id="18" foreground="" is_bold="False" name="Users &amp; Groups" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474213.69" unique_id="11">
-				<rich_text underline="single" weight="heavy">
-					Users
-				</rich_text>
-				<rich_text>
-					
+<rich_text underline="single" weight="heavy">
+Users
+</rich_text>
+<rich_text>
 
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					Groups
-				</rich_text>
-			</node>
-			<node custom_icon_id="18" foreground="" is_bold="False" name="Network" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474223.91" unique_id="13">
-				<rich_text underline="single" weight="heavy">
-					IPConfig\IFConfig
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Groups
+</rich_text>
+</node>
+<node custom_icon_id="18" foreground="" is_bold="False" name="Network" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474223.91" unique_id="13">
+<rich_text underline="single" weight="heavy">
+IPConfig\IFConfig
 
-				</rich_text>
-				<rich_text>
-					
-
-
-
-
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					Network Processes
-				</rich_text>
-				<rich_text>
-					
+</rich_text>
+<rich_text>
 
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					ARP
-				</rich_text>
-				<rich_text>
-					
+</rich_text>
+<rich_text>
+Network Processes
+</rich_text>
+<rich_text>
 
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					DNS
-				</rich_text>
-				<rich_text>
-					
+</rich_text>
+<rich_text underline="single" weight="heavy">
+ARP
+</rich_text>
+<rich_text>
 
 
 
 
 
-				</rich_text>
-				<rich_text underline="single" weight="heavy">
-					Route
-				</rich_text>
-			</node>
-			<node custom_icon_id="18" foreground="" is_bold="False" name="Scheduled Jobs" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1496953428.46" unique_id="16">
-				<rich_text underline="single" weight="heavy">
-					Scheduled Tasks
-				</rich_text>
-			</node>
-		</node>
-		<node custom_icon_id="10" foreground="" is_bold="False" name="Priv Escalation" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474606.33" unique_id="12">
-			<rich_text weight="heavy">
+</rich_text>
+<rich_text underline="single" weight="heavy">
+DNS
+</rich_text>
+<rich_text>
+
+
+
+
+
+
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Route
+</rich_text>
+</node>
+<node custom_icon_id="18" foreground="" is_bold="False" name="Scheduled Jobs" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1496953428.46" unique_id="16">
+<rich_text underline="single" weight="heavy">
+Scheduled Tasks
+</rich_text>
+</node>
+</node>
+<node custom_icon_id="10" foreground="" is_bold="False" name="Priv Escalation" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1500474606.33" unique_id="12">
+<rich_text weight="heavy">
 Service Exploited:  
 Vulnerability Type:
 Exploit POC:
@@ -384,90 +378,73 @@ Proof\Local.txt File
 			</node>
 		</node>
 		<node custom_icon_id="12" foreground="" is_bold="False" name="Software Versions" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1496953122.23" unique_id="19">
-			<rich_text underline="single" weight="heavy">
-				Software Versions
+<rich_text underline="single" weight="heavy">
+Software Versions
 
-			</rich_text>
-			<rich_text>
-				
-
+</rich_text>
+<rich_text>
 
 
 
 
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Potential Exploits
-			</rich_text>
-		</node>
-		<node custom_icon_id="13" foreground="" is_bold="True" name="Methodology" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1496953072.48" ts_lastsave="1500474082.49" unique_id="28">
-			<rich_text underline="single" weight="heavy">
-				Network Scanning
-			</rich_text>
-			<rich_text>
-				
+
+
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Potential Exploits
+</rich_text>
+</node>
+<node custom_icon_id="13" foreground="" is_bold="True" name="Methodology" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1496953072.48" ts_lastsave="1500474082.49" unique_id="28">
+<rich_text underline="single" weight="heavy">
+Network Scanning
+</rich_text>
+<rich_text>
+
 
    ☐  nmap -sn 10.11.1.*
    ☐  nmap -sL 10.11.1.*
    ☐  nbtscan -r 10.11.1.0/24
-   ☐  
-			</rich_text>
-			<rich_text link="node 47">
-				smbtree
-			</rich_text>
-			<rich_text>
-				
+ 
+   
+</rich_text>
+<rich_text link="node 47">
+smbtree
+</rich_text>
+<rich_text>
 
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Individual Host Scanning
-			</rich_text>
-			<rich_text>
-				
+
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Individual Host Scanning
+</rich_text>
+<rich_text>
+
 
    ☐  nmap  --top-ports 20 --open -iL iplist.txt
    ☐  nmap -sS -A -sV -O -p- ipaddress
    ☐  nmap -sU ipaddress
 
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Service Scanning
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Service Scanning
+</rich_text>
+<rich_text>
+
 
     
-			</rich_text>
-			<rich_text weight="heavy">
-				WebApp
-			</rich_text>
-			<rich_text>
-				
-      ☐   
-			</rich_text>
-			<rich_text link="node 28">
-				Nikto
-			</rich_text>
-			<rich_text>
-				
-      ☐   
-			</rich_text>
-			<rich_text link="node 32">
-				dirb
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+WebApp
+</rich_text>
+
+<rich_text>
+
+      ☐	  Nikto
+	  ☐	  wpscan
       ☐   dirbuster
-      ☐   
-			</rich_text>
-			<rich_text link="node 30">
-				wpscan
-			</rich_text>
-			<rich_text>
-				
       ☐   dotdotpwn
       ☐   view source 
       ☐   davtest\cadevar
@@ -476,55 +453,43 @@ Proof\Local.txt File
       ☐   LFI\RFI Test
       
     
-			</rich_text>
-			<rich_text weight="heavy">
-				Linux\Windows
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+Linux\Windows
+</rich_text>
+<rich_text>
       ☐   snmpwalk -c public -v1 
-			</rich_text>
-			<rich_text style="italic">
-				ipaddress
-			</rich_text>
-			<rich_text>
-				 1
+</rich_text>
+<rich_text style="italic">
+ipaddress
+</rich_text>
+<rich_text>
+
       ☐   smbclient -L //ipaddress
       ☐   showmount -e ipaddress port
       ☐   rpcinfo
       ☐   Enum4Linux
     
     
-			</rich_text>
-			<rich_text weight="heavy">
-				Anything Else
-			</rich_text>
-			<rich_text>
-				
-      ☐   
-			</rich_text>
-			<rich_text link="node 48">
-				nmap scripts
-			</rich_text>
-			<rich_text>
-				 (locate *nse* | grep servicename)
-      ☐   
-			</rich_text>
-			<rich_text link="node 35">
-				hydra
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+Anything Else
+</rich_text>
+<rich_text>
+
+	  ☐	  hydra
+	  ☐	  nmap scripts
+	  ☐	  (locate *nse* | grep servicename)
+	  ☐	  hydra
       ☐   MSF Aux Modules
       ☐   Download the softward
 
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Exploitation
+</rich_text>
+<rich_text>
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Exploitation
-			</rich_text>
-			<rich_text>
-				
    ☐   Gather Version Numbes
    ☐   Searchsploit
    ☐   Default Creds
@@ -532,100 +497,98 @@ Proof\Local.txt File
    ☐   Download the software
 
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Post Exploitation
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Post Exploitation
+</rich_text>
+<rich_text>
+
 
     
-			</rich_text>
-			<rich_text weight="heavy">
-				Linux
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+Linux
+</rich_text>
+<rich_text>
+
       ☐   linux-local-enum.sh
       ☐   linuxprivchecker.py
       ☐   linux-exploit-suggestor.sh
       ☐   unix-privesc-check.py
 
-    
-			</rich_text>
-			<rich_text weight="heavy">
-				Windows
-			</rich_text>
-			<rich_text>
-				
+   
+</rich_text>
+<rich_text weight="heavy">
+Windows
+</rich_text>
+<rich_text>
+
       ☐   wpc.exe
       ☐   windows-exploit-suggestor.py
-      ☐   
-			</rich_text>
-			<rich_text link="webs https://github.com/pentestmonkey/windows-privesc-check/blob/master/windows_privesc_check.py">
-				windows_privesc_check.py
-			</rich_text>
-			<rich_text>
-				
+         
+</rich_text>
+<rich_text link="webs https://github.com/pentestmonkey/windows-privesc-check/blob/master/windows_privesc_check.py">
+      ☐   windows_privesc_check.py
+</rich_text>
+<rich_text>
       ☐  	windows-privesc-check2.exe
+</rich_text>
+<rich_text underline="single" weight="heavy">
+      ☐     Priv Escalation
+</rich_text>
+<rich_text>
 
+   
+</rich_text>
+<rich_text link="node 36">
+acesss internal services (portfwd)
+</rich_text>
+<rich_text>
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Priv Escalation
-			</rich_text>
-			<rich_text>
-				
-   ☐  
-			</rich_text>
-			<rich_text link="node 36">
-				acesss internal services (portfwd)
-			</rich_text>
-			<rich_text>
-				
    ☐  add account
 
 
-			</rich_text>
-			<rich_text weight="heavy">
-				Windows
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+Windows
+</rich_text>
+<rich_text>
+
    ☐  List of exploits
 
 
-			</rich_text>
-			<rich_text weight="heavy">
-				Linux
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text weight="heavy">
+Linux
+</rich_text>
+<rich_text>
+
    ☐  sudo su 
    ☐  KernelDB
    ☐  Searchsploit
 
 
-			</rich_text>
-			<rich_text underline="single" weight="heavy">
-				Final
-			</rich_text>
-			<rich_text>
-				
+</rich_text>
+<rich_text underline="single" weight="heavy">
+Final
+</rich_text>
+<rich_text>
+
    ☐  Screenshot of IPConfig\WhoamI
    ☐  Copy proof.txt
    ☐  Dump hashes 
    ☐  Dump SSH Keys
    ☐  Delete files
-			</rich_text>
-		</node>
-		<node custom_icon_id="20" foreground="" is_bold="True" name="Log Book" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1495714168.37" unique_id="1">
-			<rich_text>
-				
-			</rich_text>
-		</node>
-	</node>
-   '''
+   
+</rich_text>
+</node>
+<node custom_icon_id="20" foreground="" is_bold="True" name="Log Book" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1495714168.37" unique_id="1">
+<rich_text>
+
+</rich_text>
+</node>
+</node>
+'''
 
     def __init__(self, address=''):
 
