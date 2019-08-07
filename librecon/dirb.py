@@ -15,7 +15,7 @@ import re
 import signal
 import sys
 import ssl
-import M2Crypto
+#import M2Crypto
 import OpenSSL
 
 from halo import Halo
@@ -122,18 +122,18 @@ class Dirb:
 
                 try:
                     if self.directory_log is True:
-                        output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (self.proto, self.hostname, self.wordlist, self.dirb_dir))
+                        output = self.run_command("gobuster -k -q -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (self.proto, self.hostname, self.wordlist, self.dirb_dir))
                     else:
-                        output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (self.proto, self.hostname, self.wordlist))
+                        output = self.run_command("gobuster -k -q -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (self.proto, self.hostname, self.wordlist))
                 except:
                     pass
         else:
 
             try:
                 if self.directory_log is True:
-                    output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (self.proto, self.hostname, self.wordlist, self.dirb_dir))
+                    output = self.run_command("gobuster -k -q -u %s://%s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_stage1" % (self.proto, self.hostname, self.wordlist, self.dirb_dir))
                 else:
-                    output = self.run_command("gobuster -q -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (self.proto, self.hostname, self.wordlist))
+                    output = self.run_command("gobuster -k -q -u %s://%s -w %s -x .php,.txt,.sh -t 40" % (self.proto, self.hostname, self.wordlist))
             except:
                 pass
 
@@ -186,9 +186,9 @@ class Dirb:
 
                         try:
                             if self.directory_log is True:
-                                output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (_url, self.wordlist, self.dirb_dir, _folder.replace('/', '_')))
+                                output = self.run_command("gobuster -k -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (_url, self.wordlist, self.dirb_dir, _folder.replace('/', '_')))
                             else:
-                                output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
+                                output = self.run_command("gobuster -k -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
                         except:
                             pass
                 else:
@@ -198,54 +198,9 @@ class Dirb:
 
                     try:
                         if self.directory_log is True:
-                            output = self.run_command("gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (
+                            output = self.run_command("gobuster -k -q -u %s -w %s -x .php,.txt,.sh -t 40 -o %s/dirb_%s" % (
                             _url, self.wordlist, self.dirb_dir, _folder.replace('/', '_')))
                         else:
-                            output = self.run_command(
-                                "gobuster -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
+                            output = self.run_command("gobuster -k -q -u %s -w %s -x .php,.txt,.sh -t 40" % (_url, self.wordlist))
                     except:
                         pass
-
-    def download_certificate(self):
-
-        if self.module_disable is True:
-            return
-
-        color = Colors()
-        output = ''
-
-        if self.ssl_proto is False:
-            return
-
-        utils().puts('success', "Loot TLS certificate")
-
-        try:
-            cert = ssl.get_server_certificate((self.hostname, 443))
-            x509 = M2Crypto.X509.load_cert_string(cert)
-            x509.get_subject().as_text()
-
-            # OpenSSL
-            x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
-
-            results = 'TLS Certificate data\n'
-            results += '---------------\n'
-
-            results += str(x509.get_notAfter()) + "\n"
-            results += str((x509.get_notBefore())) + "\n"
-            results += str((x509.get_signature_algorithm())) + "\n"
-
-            for i in x509.get_issuer().get_components():
-                res = ':'.join(map(str, i))
-                results += res + "\n"
-
-            for x in range(0, x509.get_extension_count()):
-                results += str(x509.get_extension(x)) + "\n"
-
-            if self.directory_log is True:
-                with open("%s/%s.tls.txt" % (self.dirb_dir, self.hostname), 'w') as f:
-                    f.writelines(results)
-
-        except:
-            return False
-
-

@@ -49,7 +49,6 @@ class Librecon:
             ss.scan()
 
             db = Dirb(hostname=ip, ssl_proto=True)
-            db.download_certificate()
             db.robots_scan()
             db.dirb_stage_1()
 
@@ -91,10 +90,6 @@ class Librecon:
             p = Process(target=ss.scan)
             p.start()
 
-            db = Dirb(hostname=ip, ssl_proto=True, silent=True)
-            p = Process(target=db.download_certificate)
-            p.start()
-
             p = Process(target=db.robots_scan)
             p.start()
 
@@ -134,7 +129,6 @@ class Librecon:
         db.dirb_stage_1()
 
         db = Dirb(hostname=ip, ssl_proto=True)
-        #db.download_certificate()
         db.robots_scan()
         db.dirb_stage_1()
     '''

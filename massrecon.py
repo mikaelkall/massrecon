@@ -30,13 +30,12 @@ def __usage():
 ██║╚██╔╝██║██╔══██║╚════██║╚════██║██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
 ██║ ╚═╝ ██║██║  ██║███████║███████║██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
 ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
-[nighter@nighter.se] [Scans and updates CherryTree]                                                                                           
+[Scans and updates CherryTree]                                                                                           
 
 Usage: massrecon [OPTIONS]
 
 General Options
 
-   massrecon  <ip>\tStart all recon modules async
        recon  <ip>\tStart recon target
 
    [Plugins]
@@ -46,7 +45,7 @@ General Options
        nikto  <ip>\tRun nikto module only
          ftp  <ip>\tRun ftp module only
       sslyze  <ip>\tRun sslyze module only
-fullportscan  <ip>\tRun quick portscan on all ports.
+   quickscan  <ip>\tRun quick portscan on all ports.
 """)
 
     sys.exit(0)
@@ -86,7 +85,7 @@ if __name__ == '__main__':
     elif opt.lower() == "ftp":
         Librecon().sslyze(ip=ip)
         sys.exit(0)
-    elif opt.lower() == "fullportscan":
+    elif opt.lower() == "quickscan":
         Librecon().fullportscan(ip=ip)
         sys.exit(0)
 
