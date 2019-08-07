@@ -103,6 +103,12 @@ Nmap done: 1 IP address (1 host up) scanned in 15.09 seconds
    ➜ Spider: http://10.10.10.88/webservices/monstra-3.0.4/
  ```
 
+## Example
+
+
+[![asciicast](https://asciinema.org/a/0enJTtQtQv0Jc6OTDvhqSazgN.svg)](https://asciinema.org/a/0enJTtQtQv0Jc6OTDvhqSazgN)
+
+
 ## Cherrytree
 
 For view in Cherrytree. Database file can be found in this location.
