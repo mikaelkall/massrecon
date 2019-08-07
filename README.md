@@ -15,32 +15,6 @@ Install package and you will have /usr/bin/massrecon.py ready for usage.
 sudo python3 setup.py install
 ```
 
-## Prerequisites
-
-For development you need to install these dependencies. Do this or use virtualenv
-
-```sh
-sudo pip install -r requirements.txt
-Requirement already satisfied: halo==0.0.12 in /usr/lib/python3.6/site-packages (from -r requirements.txt (line 1)) (0.0.12)
-Requirement already satisfied: configparser==3.5.0 in /usr/lib/python3.6/site-packages (from -r requirements.txt (line 2)) (3.5.0)
-Requirement already satisfied: backports.shutil_get_terminal_size==1.0.0 in /usr/lib/python3.6/site-packages (from halo==0.0.12->-r requirements.txt (line 1)) (1.0.0)
-Requirement already satisfied: log_symbols==0.0.11 in /usr/lib/python3.6/site-packages (from halo==0.0.12->-r requirements.txt (line 1)) (0.0.11)
-Requirement already satisfied: spinners==0.0.19 in /usr/lib/python3.6/site-packages (from halo==0.0.12->-r requirements.txt (line 1)) (0.0.19)
-Requirement already satisfied: cursor==1.2.0 in /usr/lib/python3.6/site-packages (from halo==0.0.12->-r requirements.txt (line 1)) (1.2.0)
-Requirement already satisfied: termcolor==1.1.0 in /usr/lib/python3.6/site-packages (from halo==0.0.12->-r requirements.txt (line 1)) (1.1.0)
-Requirement already satisfied: colorama==0.3.9 in /usr/lib/python3.6/site-packages (from halo==0.0.12->-r requirements.txt (line 1)) (0.3.9)
-Collecting six==1.11.0 (from halo==0.0.12->-r requirements.txt (line 1))
-  Downloading https://files.pythonhosted.org/packages/67/4b/141a581104b1f6397bfa78ac9d43d8ad29a7ca43ea90a2d863fe3056e86a/six-1.11.0-py2.py3-none-any.whl
-Requirement already satisfied: enum34==1.1.6 in /usr/lib/python3.6/site-packages (from log_symbols==0.0.11->halo==0.0.12->-r requirements.txt (line 1)) (1.1.6)
-zapcli 0.9.0 has requirement six==1.10.0, but you'll have six 1.11.0 which is incompatible.
-Installing collected packages: six
-  Found existing installation: six 1.10.0
-    Uninstalling six-1.10.0:
-      Successfully uninstalled six-1.10.0
-Successfully installed six-1.11.0
-Cache entry deserialization failed, entry ignored
-```
-
 ## Usage
 
 ```sh
@@ -113,6 +87,6 @@ Nmap done: 1 IP address (1 host up) scanned in 15.09 seconds
 
 For view in Cherrytree. Database file can be found in this location.
 
-~/.massrecon/massrecon.ctb
+**~/.massrecon/massrecon.ctb**
 
-![](https://raw.githubusercontent.com/mikaelkall/massrecon/develop/chr.gif)
+![](https://i.imgur.com/6R3npOW.png)
