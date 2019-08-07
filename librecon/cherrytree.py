@@ -50,7 +50,7 @@ class CherryTree:
 						
 					</rich_text>
 				</node>
-				<node custom_icon_id="18" foreground="" is_bold="False" name="Dirb\DirBuster" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1492949554.24" ts_lastsave="1500473690.91" unique_id="25">
+				<node custom_icon_id="18" foreground="" is_bold="False" name="GoBuster" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1492949554.24" ts_lastsave="1500473690.91" unique_id="25">
 					<rich_text>
 						
 					</rich_text>
@@ -695,6 +695,13 @@ Exploit POC:
 
     def append_data(self, node_name, message):
 
+        # Cleanup message
+        message = message.replace('<', '&lt;')
+        message = message.replace('>', '&gt;')
+        message = message.replace('"', '&quot;')
+        message = message.replace("'", '&apos;')
+        message = message.replace("&", '&amp;')
+
         node_found = False
         append_found = False
         self.database_data = ''
@@ -715,11 +722,11 @@ Exploit POC:
                     else:
                         if append_found is True:
                             if '<rich_text>' in row:
-                                self.database_data += '<rich_text>\n%s' % message + "\n"
-                                append_found = False
-                                continue
+                                pass
 
                             if '</rich_text>' in row:
+                                self.database_data += '\n%s' % message + "\n</rich_text>\n"
+                                append_found = False
                                 continue
 
                 self.database_data += row + '\n'
