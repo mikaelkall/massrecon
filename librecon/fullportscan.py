@@ -113,11 +113,7 @@ class Fullportscan:
                 pass
 
         if self.cherrytree_log is True:
-
-            _leaf_name = 'fullportscan_%s' % time.strftime("%Y%m%d_%H:%M:%S")
-
-            self.chr.insert(name='machines', leaf=self.hostname)
-            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
+            self.chr.append_data('TCP', output)
 
 if __name__ == '__main__':
     pass
