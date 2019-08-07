@@ -72,12 +72,20 @@ class Sslyze:
 
     def run_command(self, command):
         process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+        i = 0
         while True:
+            i += 1
             output = process.stdout.readline()
             if output == '' and process.poll() is not None:
                 break
             if output:
                 print(" " + output.strip().decode())
+                if self.cherrytree_log is True:
+                    self.chr.append_data('SSLYZE', output.strip().decode())
+
+            if i > 398605:
+                break
+
         rc = process.poll()
         return rc
 
@@ -94,27 +102,21 @@ class Sslyze:
             with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
                 try:
                     if self.directory_log is True:
-                        output = self.run_command("sslyze --regular --certinfo %s --json_out=%s/sslyze.json" % (self.hostname, self.sslyze_dir))
+                        output = self.run_command("timeout 10 sslyze --regular --certinfo %s --json_out=%s/sslyze.json" % (self.hostname, self.sslyze_dir))
                     else:
-                        output = self.run_command("sslyze --regular --certinfo %s" % self.hostname)
+                        output = self.run_command("timeout 10 sslyze --regular --certinfo %s" % self.hostname)
                 except:
                     pass
         else:
 
             try:
                 if self.directory_log is True:
-                    output = self.run_command("sslyze --regular --certinfo %s --json_out=%s/sslyze.json" % (self.hostname, self.sslyze_dir))
+                    output = self.run_command("timeout 10 sslyze --regular --certinfo %s --json_out=%s/sslyze.json" % (self.hostname, self.sslyze_dir))
                 else:
-                    output = self.run_command("sslyze --regular --certinfo %s" % self.hostname)
+                    output = self.run_command("timeout 10 sslyze --regular --certinfo %s" % self.hostname)
             except:
                 pass
 
-        if self.cherrytree_log is True:
-
-            _leaf_name = 'sslyze_%s' % time.strftime("%Y%m%d_%H:%M:%S")
-
-            self.chr.insert(name='machines', leaf=self.hostname)
-            self.chr.insert(name=self.hostname, leaf=_leaf_name, txt=output)
 
 if __name__ == '__main__':
     pass
