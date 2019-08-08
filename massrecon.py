@@ -86,7 +86,7 @@ if __name__ == '__main__':
         Librecon().sslyze(ip=ip)
         sys.exit(0)
     elif opt.lower() == "quickscan":
-        Librecon().fullportscan(ip=ip)
+        Librecon().quickscan(ip=ip)
         sys.exit(0)
 
     elif opt.lower() == "sslyze":
