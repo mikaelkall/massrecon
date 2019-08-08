@@ -1,7 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-   fullportscan module
+   quickscan module
+
+   Dependency: you need the quickscan tool to run this module.
+   Install like this.
+
+   sudo curl -L https://github.com/mikaelkall/HackingAllTheThings/raw/master/tools/static/linux/x86_64/quickscan -o /usr/local/bin/quickscan && sudo chmod +x /usr/local/bin/quickscan
+
 """
 __author__ = 'kall.micke@gmail.com'
 
@@ -26,7 +32,7 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-class Fullportscan:
+class Quickscan:
 
     def __init__(self, hostname='', silent=False):
 
@@ -42,13 +48,13 @@ class Fullportscan:
 
         self.config_dir = self.cfg.config_dir
 
-        if self.cfg.config.get('massrecon', 'fullportscan') != 'True':
-            utils.puts('info', 'fullportscan module is disabled')
+        if self.cfg.config.get('massrecon', 'quickscan') != 'True':
+            utils.puts('info', 'quickscan module is disabled')
             self.module_disable = True
             return
 
-        if os.path.isfile('/usr/local/bin/fullportscan') is False:
-            utils.puts('info', 'fullportscan is not installed')
+        if os.path.isfile('/usr/local/bin/quickscan') is False:
+            utils.puts('info', 'quickscan is not installed')
             self.module_disable = True
             return
 
@@ -62,24 +68,30 @@ class Fullportscan:
             utils.puts('warning', 'No host to scan')
             return
 
-        self.scanfolder = '%s/results/fullportscan/%s' % (self.config_dir, self.hostname)
+        self.scanfolder = '%s/results/quickscan/%s' % (self.config_dir, self.hostname)
 
         if self.directory_log is True:
-            self.fullportscan_dir = '%s/results/%s/fullportscan' % (self.config_dir, self.hostname)
+            self.fullportscan_dir = '%s/results/%s/quickscan' % (self.config_dir, self.hostname)
             if os.path.isdir(self.fullportscan_dir) is False:
                 os.makedirs(self.fullportscan_dir, exist_ok=True)
 
     def run_command(self, command):
-        process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
-        while True:
-            output = process.stdout.readline()
-            if output == '' and process.poll() is not None:
-                break
-            if output:
-                pass
-                print(" " + output.strip().decode())
-        rc = process.poll()
-        return rc
+
+        with open("%s/output.txt" % self.fullportscan_dir, "a") as logfile:
+            process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+            while True:
+                output = process.stdout.readline()
+                if output == '' and process.poll() is not None:
+                    break
+                if output:
+                    print(" " + output.strip().decode())
+                    logfile.write(" " + output.strip().decode() + '\n')
+
+                    if self.cherrytree_log is True:
+                        self.chr.append_data('TCP', output.strip().decode())
+
+            rc = process.poll()
+            return rc
 
     def scan(self):
 
@@ -89,31 +101,29 @@ class Fullportscan:
             return
 
         if self.silent is False:
-            utils().puts('success', "fullportscan %s" % self.hostname)
+            utils().puts('success', "Quickscan %s" % self.hostname)
 
             with Halo(text='%s%s ' % (color.blue, color.reset), spinner='dots'):
                 try:
                     if self.directory_log is True:
-                        output = self.run_command("fullportscan -t %s" % self.hostname)
-                        with open(self.fullportscan_dir + '/fullportscan.txt', 'w') as logname:
+                        output = self.run_command("quickscan -t %s" % self.hostname)
+                        with open(self.fullportscan_dir + '/quickscan.txt', 'w') as logname:
                             logname.write(output)
                     else:
-                        output = self.run_command("fullportscan -t %s" % self.hostname)
+                        output = self.run_command("quickscan -t %s" % self.hostname)
                 except:
                     pass
         else:
             try:
                 if self.directory_log is True:
-                    output = self.run_command("fullportscan -t %s" % self.hostname)
-                    with open(self.fullportscan_dir + '/fullportscan.txt', 'w') as logname:
+                    output = self.run_command("quickscan -t %s" % self.hostname)
+                    with open(self.fullportscan_dir + '/quickscan.txt', 'w') as logname:
                         logname.write(output)
                 else:
-                    output = self.run_command("fullportscan -t %s" % self.hostname)
+                    output = self.run_command("quickscan -t %s" % self.hostname)
             except:
                 pass
 
-        if self.cherrytree_log is True:
-            self.chr.append_data('TCP', output)
 
 if __name__ == '__main__':
     pass

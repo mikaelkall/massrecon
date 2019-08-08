@@ -12,7 +12,7 @@ from librecon.dirb import *
 from librecon.nikto import *
 from librecon.ftp import *
 from librecon.sslyze import *
-from librecon.fullportscan import *
+from librecon.quickscan import *
 import os
 
 class Librecon:
@@ -159,6 +159,6 @@ class Librecon:
     '''
     Initate fullportscan module only
     '''
-    def fullportscan(self, ip=''):
-        sc = Fullportscan(hostname=ip, silent=True)
+    def quickscan(self, ip=''):
+        sc = Quickscan(hostname=ip, silent=True)
         sc.scan()
