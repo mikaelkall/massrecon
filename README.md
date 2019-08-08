@@ -85,14 +85,12 @@ Nmap done: 1 IP address (1 host up) scanned in 15.09 seconds
 
 ## Example
 
-
-[![asciicast](https://asciinema.org/a/0enJTtQtQv0Jc6OTDvhqSazgN.svg)](https://asciinema.org/a/0enJTtQtQv0Jc6OTDvhqSazgN)
-
+[![asciicast](https://asciinema.org/a/NHxrjuT5jkIe4ukqfixyIzFix.svg)](https://asciinema.org/a/NHxrjuT5jkIe4ukqfixyIzFix)
 
 ## Cherrytree
 
 For view in Cherrytree. Database file can be found in this location.
 
-**~/.massrecon/massrecon.ctb**
+**~/.massrecon/massrecon.ctd**
 
 ![](https://i.imgur.com/6R3npOW.png)
