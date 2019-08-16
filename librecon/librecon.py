@@ -32,7 +32,7 @@ class Librecon:
         np.scan_stage_3()
 
         # quick portscan async
-        sc = Fullportscan(hostname=ip, silent=True)
+        sc = Quickscan(hostname=ip, silent=True)
         p = Process(target=sc.scan)
         p.start()
 
