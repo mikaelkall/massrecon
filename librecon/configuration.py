@@ -46,5 +46,7 @@ class Configuration:
         self.config.set('massrecon', 'sslyze', 'True')
         self.config.set('massrecon', 'quickscan', 'True')
         self.config.set('massrecon', 'dirb_wordlist', '/usr/share/dirbuster/directory-list-lowercase-2.3-medium.txt')
+        self.config.set('oscp', 'report_user_email', 'XXXXX')
+        self.config.set('oscp', 'report_user_osid', 'XXXXX')
         self.config.write(cfgfile)
 

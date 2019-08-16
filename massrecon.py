@@ -10,6 +10,7 @@ import os
 import signal
 
 from librecon.librecon import *
+from oscp.oscp import *
 
 sys.path.insert(1, os.path.join(sys.path[0], '../'))
 
@@ -37,6 +38,7 @@ Usage: massrecon [OPTIONS]
 General Options
 
        recon  <ip>\tStart recon target
+       report     \tGenerate OSCP report from CherryTree data.
 
    [Plugins]
 
@@ -46,12 +48,20 @@ General Options
          ftp  <ip>\tRun ftp module only
       sslyze  <ip>\tRun sslyze module only
    quickscan  <ip>\tRun quick portscan on all ports.
+
 """)
 
     sys.exit(0)
 
 
 if __name__ == '__main__':
+
+    try:
+        if sys.argv[1].strip().lower() == 'report':
+            OSCP().generate_report()
+            os._exit(0)
+    except:
+        pass
 
     if len(sys.argv) < 2:
         __usage()
