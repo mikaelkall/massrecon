@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
   massrecon
-  Relax this finds all vectors
+  Automate recognisance and updates CherryTree
 """
 
 import sys
@@ -10,6 +10,7 @@ import os
 import signal
 
 from librecon.librecon import *
+from version import __version__
 
 sys.path.insert(1, os.path.join(sys.path[0], '../'))
 
@@ -23,22 +24,14 @@ signal.signal(signal.SIGINT, signal_handler)
 
 
 def __usage():
-    print("""
-███╗   ███╗ █████╗ ███████╗███████╗██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
-████╗ ████║██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
-██╔████╔██║███████║███████╗███████╗██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║
-██║╚██╔╝██║██╔══██║╚════██║╚════██║██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
-██║ ╚═╝ ██║██║  ██║███████║███████║██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
-╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
-[Scans and updates CherryTree]
-
+    print("""Massrecon %s ( http://blog.nighter.se/blog/2019/08/13/massrecon-released/ )
 Usage: massrecon [OPTIONS]
 
 General Options
 
        recon  <ip>\tStart recon target
 
-   [Plugins]
+   [Modules]
 
         nmap  <ip>\tRun nmap module only
         dirb  <ip>\tRun dirb module only
@@ -46,7 +39,7 @@ General Options
          ftp  <ip>\tRun ftp module only
       sslyze  <ip>\tRun sslyze module only
    quickscan  <ip>\tRun quick portscan on all ports.
-""")
+""" % __version__)
 
     sys.exit(0)
 
