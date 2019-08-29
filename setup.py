@@ -13,7 +13,7 @@ version_py = os.path.join(os.path.dirname(__file__), 'version.py')
 
 try:
     version_git = subprocess.getoutput("/usr/bin/git ls-remote -q --tags 2>/dev/null | awk '{print $2}' |egrep -o '[0-9]+.[0-9]+.[0-9]+' |sort -g |tail -1").rstrip()
-    if len(version_git) == 0
+    if len(version_git) == 0:
         raise Exception('git describe failed to execute reason: %s' % o[1])
 except Exception:
     with open(version_py, 'r') as fh:
@@ -52,6 +52,6 @@ setup(
         'unittest2==1.1.0',
         'requests==2.13.0'
     ],
-    scripts=['massrecon.py'],
+    scripts=['massrecon.py', 'version.py'],
     zip_safe=False
 )
