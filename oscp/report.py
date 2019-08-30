@@ -17,7 +17,9 @@ from shutil import copyfile
 try:
     from librecon.configuration import *
     from librecon.utils import *
+    from librecon.cherryreader import *
 except:
+    from cherryreader import *
     from configuration import *
     from utils import *
 
@@ -65,4 +67,10 @@ class Report:
 
         self.replace(r"example@example.example", self.oscp_email)
         self.replace(r'OSID: XXXXX', self.oscp_osid)
+
+        # Import all addresses
+        for i, address in enumerate(CherryTreeReader().get_addresses()):
+            replace = r"192\.168\.1\.%i" % i
+            self.replace(replace, address)
+
 
