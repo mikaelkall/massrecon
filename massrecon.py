@@ -10,6 +10,7 @@ import os
 import signal
 
 from librecon.librecon import *
+from oscp.report import *
 from version import __version__
 
 sys.path.insert(1, os.path.join(sys.path[0], '../'))
@@ -30,6 +31,7 @@ Usage: massrecon [OPTIONS]
 General Options
 
        recon  <ip>\tStart recon target
+       report     \tGenerate OSCP report from CherryTree data.
 
    [Modules]
 
@@ -45,6 +47,13 @@ General Options
 
 
 if __name__ == '__main__':
+
+    try:
+        if sys.argv[1].strip().lower() == 'report':
+            Report().create()
+            os._exit(0)
+    except:
+        pass
 
     if len(sys.argv) < 2:
         __usage()
