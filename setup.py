@@ -40,7 +40,8 @@ setup(
         'nose==1.3.7',
         'rednose==1.3.0',
         'unittest2==1.1.0',
-        'requests==2.13.0'
+        'requests==2.13.0',
+        'python-docx==0.8.10'
     ],
     install_requires=[
         'halo==0.0.12',
@@ -50,7 +51,8 @@ setup(
         'nose==1.3.7',
         'rednose==1.3.0',
         'unittest2==1.1.0',
-        'requests==2.13.0'
+        'requests==2.13.0',
+        'python-docx==0.8.10'
     ],
     scripts=['massrecon.py', 'version.py'],
     zip_safe=False
