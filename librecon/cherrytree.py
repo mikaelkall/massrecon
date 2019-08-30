@@ -610,7 +610,10 @@ Final
             utils.puts('info', 'CherryTree module is disabled')
             return
 
-        self.db_file = '%s/massrecon.ctd' % cfg.config_dir
+        if len(cfg.config.get('massrecon', 'cherrytree_dbfile')) != 0 and 'DEFAULTDB' not in os.environ:
+            self.db_file = cfg.config.get('massrecon', 'cherrytree_dbfile')
+        else:
+            self.db_file = '%s/massrecon.ctd' % cfg.config_dir
 
         if os.path.exists(self.db_file) is False:
             utils.puts('info', 'CherryTree database not found. Created it.')
@@ -700,5 +703,5 @@ Final
             file.write(self.database_data)
 
 if __name__ == '__main__':
-    pass
+    CherryTree(address='127.0.0.1')
 
