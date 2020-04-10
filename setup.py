@@ -30,7 +30,7 @@ setup(
     url='https://github.com/mikaelkall/massrecon.git',
     author='Mikael Kall',
     author_email='nighter@nighter.se',
-    packages=['librecon'],
+    packages=['librecon', 'oscp'],
 
     setup_requires=[
         'halo==0.0.12',
