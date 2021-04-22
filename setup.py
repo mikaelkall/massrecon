@@ -33,25 +33,25 @@ setup(
     packages=['librecon', 'oscp'],
 
     setup_requires=[
-        'halo==0.0.12',
+        'halo==0.0.28',
         'configparser==3.5.0',
         'Paver==1.3.4',
         'pyOpenSSL==18.0.0',
         'nose==1.3.7',
         'rednose==1.3.0',
         'unittest2==1.1.0',
-        'requests==2.13.0',
+        'requests==2.20.0',
         'python-docx==0.8.10'
     ],
     install_requires=[
-        'halo==0.0.12',
+        'halo==0.0.28',
         'configparser==3.5.0',
         'Paver==1.3.4',
         'pyOpenSSL==18.0.0',
         'nose==1.3.7',
         'rednose==1.3.0',
         'unittest2==1.1.0',
-        'requests==2.13.0',
+        'requests==2.20.0',
         'python-docx==0.8.10'
     ],
     scripts=['massrecon.py', 'version.py'],
