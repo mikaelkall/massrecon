@@ -40,7 +40,7 @@ setup(
         'nose==1.3.7',
         'rednose==1.3.0',
         'unittest2==1.1.0',
-        'requests==2.20.0',
+        'requests==2.31.0',
         'python-docx==0.8.10'
     ],
     install_requires=[
@@ -51,7 +51,7 @@ setup(
         'nose==1.3.7',
         'rednose==1.3.0',
         'unittest2==1.1.0',
-        'requests==2.20.0',
+        'requests==2.31.0',
         'python-docx==0.8.10'
     ],
     scripts=['massrecon.py', 'version.py'],
